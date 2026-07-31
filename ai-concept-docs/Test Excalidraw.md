@@ -1,2 +1,1 @@
-![[ai-concept-repo/ai-concept-docs/test-draw]]
-pdvevkºq
+![ai-concept-repo/ai-concept-docs/test-draw](test-draw.png)
