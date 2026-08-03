@@ -33,4 +33,4 @@ This hybrid model is increasingly common among more recent business-oriented no-
 
 ---
 
-_The remainder of this report examines **Hybrid Approach** in greater depth, evaluating its technical feasibility, associated risks, and suitability for integration into the company's existing no-code platform._
+_The remainder of this report examines the **Hybrid Approach** in greater depth, evaluating its technical feasibility, associated risks, and suitability for integration into the company's existing no-code platform._
