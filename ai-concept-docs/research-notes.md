@@ -1,0 +1,2 @@
+- Traditional no-code moved the barrier from "hire a developer" to "learn a builder"; AI-native tools move it again to "just describe your idea.".
+- The core difference between traditional no-code app builders and modern AI app builders is that they produce exportable code and handle iterations through conversation.
