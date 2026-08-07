@@ -2,6 +2,9 @@
 
 Under the **Hybrid Approach**, the app-building process can be modeled as an interaction between four entities: the **User**, the **App Builder Platform**, the **Description Agent (DA)**, and the **Implementation Agent (IA)**. Together, these entities pursue a single objective — producing the application that most faithfully represents the user's original description. Because the application is only considered complete once the user actually ships it, the interaction between these four entities must be as effortless and intuitive as possible; any unnecessary complexity at this stage directly increases the likelihood of the user abandoning the process before publishing.
 
+(Add schema description)
+![[schema-image.jpeg]]
+
 ## User
 
 The user is present throughout the entire process, from the initial description to the final review and any subsequent adjustments. As the only human entity in this interaction, the user is responsible for communicating directly with the Description Agent and for validating or correcting its output when necessary. Given that the quality of an AI agent's output is directly proportional to the quality of the input it receives, the user must be reasonably comfortable articulating the intended structure, functionality, and design of the app in natural language.
