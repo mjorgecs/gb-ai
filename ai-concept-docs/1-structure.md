@@ -1,8 +1,6 @@
 # The Entities
 
-Under the **Hybrid Approach**, the app-building process can be modeled as an interaction between four entities: the **User**, the **App Builder Platform**, the **Description Agent (DA)**, and the **Implementation Agent (IA)**. Together, these entities pursue a single objective — producing the application that most faithfully represents the user's original description. Because the application is only considered complete once the user actually ships it, the interaction between these four entities must be as effortless and intuitive as possible; any unnecessary complexity at this stage directly increases the likelihood of the user abandoning the process before publishing.
-
-(Add schema description)
+Under the **Hybrid Approach**, the app-building process can be modeled as an interaction between four entities: the **User**, the **App Builder Platform**, the **Description Agent (DA)**, and the **Implementation Agent (IA)**. Together, these entities pursue a single objective — producing the application that most faithfully represents the user's original description. Because the application is only considered complete once the user actually ships it, the interaction between these four entities must be as effortless and intuitive as possible; any unnecessary complexity at this stage directly increases the likelihood of the user abandoning the process before publishing. The following image illustrates the architecture and the stages of the AI-powered app-building process discussed throughout this report.
 
 <img src="img/schema-image.jpeg">
 
@@ -23,7 +21,7 @@ Failing to leverage this existing platform would represent a significant strateg
 
 ## Agents
 
-Several agent configurations could, in principle, be adopted by the platform — ranging from a single agent that handles the entire process, to a pipeline of orchestrated subagents, to a fully distributed multi-agent configuration. This section examines the most common of these configurations and their respective trade-offs.
+Several agent configurations could be adopted by the platform — ranging from a single agent that handles the entire process, to a pipeline of orchestrated subagents, to a fully distributed multi-agent configuration. This section examines the most common of these configurations and their respective trade-offs.
 
 **1. One-Agent Approach**
 
@@ -34,21 +32,21 @@ Under this configuration, a single AI agent manages the entirety of the interact
 
 **2. Subagents Approach**
 
-Under this configuration, a central orchestrator agent coordinates a pipeline of specialized subagents, each responsible for a specific stage of the process (for example, one subagent focused on interpreting design preferences, another on selecting sections, another on recommending extensions). Each subagent processes its stage and passes its output to the next, progressively building the JSON document that represents the application's structure.
+Under this configuration, a central orchestrator agent coordinates a pipeline of specialized subagents, each responsible for a specific stage of the process (e.g., one subagent focused on interpreting design preferences, another on selecting sections, another on recommending extensions). Each subagent processes its stage and passes its output to the next, progressively building the JSON document that represents the application's structure.
 
 - **Advantages:** This approach allows each subagent to specialize narrowly in a single task, which tends to improve accuracy and consistency at each stage compared to a single generalist agent. It also makes the system considerably easier to test, debug, and iterate on, since each subagent's prompt and behavior can be evaluated and refined independently; furthermore, subagents can potentially be reused across different parts of the platform or run in parallel when their tasks are independent of one another.
 - **Disadvantages:** Chaining multiple subagent calls sequentially introduces additional orchestration complexity and latency compared to a single-agent design. Errors or ambiguities produced at one stage can propagate downstream if not explicitly validated before being passed to the next subagent, and the overall token cost tends to be higher, since multiple LLM calls are required to complete a single user request instead of one.
 
 **3. Multi-Agent Approach**
 
-Under this configuration, more than one independent, top-level agent handles the overall process, with each agent passing its output to the next — for instance, through a shared structured document (such as the JSON specification already defined in this report), a message-passing protocol, or a shared memory/state store — while also being able to delegate its own subagents for specific subtasks when needed.
+Under this configuration, more than one independent, top-level agent handles the overall process, with each agent passing its output to the next — for instance, through a shared structured document (such as a JSON file), a message-passing protocol, or a shared memory/state store — while also being able to delegate its own subagents for specific subtasks when needed.
 
 Having more than one independent agent operating over the same problem raises several concerns that must be carefully weighed: **maintainability**, since each agent may evolve independently and must remain compatible with the others over time; **availability**, since the failure or unavailability of any single agent can interrupt the entire pipeline; **state consistency**, since information must be reliably preserved and correctly interpreted as it crosses agent boundaries; and **operational cost**, since running multiple independent agents is inherently more resource-intensive than running one. For these reasons, it is important to determine the most suitable number of agents for a process that, in this platform's case, naturally consists of two distinct stages — description and implementation.
 
 The most suitable option is to adopt **two agents** — the Description Agent and the Implementation Agent — because this division aligns directly with the two fundamentally different skill sets the process requires: the description stage is primarily conversational and interpretive, requiring natural-language understanding and sustained, user-facing dialogue, whereas the implementation stage is primarily technical and executional, requiring precise component selection and platform manipulation. Separating these responsibilities allows each agent to maintain a smaller, more focused context window and toolset tailored to its specific task, without requiring the coordination overhead — and the maintainability, availability, and consistency concerns described above — that a larger multi-agent configuration would introduce.
 
-- **Advantages:** This configuration provides a clear separation of concerns that mirrors the natural two-stage structure of the process, allowing each agent's context and available tools to remain focused and comparatively lightweight, which in turn improves accuracy and reduces unnecessary token usage. It also allows each agent to be developed, tested, and iterated upon independently, and it aligns directly with the JSON-based handoff document already defined earlier in this report.
-- **Disadvantages:** This approach still requires a well-defined and reliable communication protocol — namely, the JSON specification — to ensure information is transferred accurately between the two agents. It introduces a degree of coordination and latency overhead relative to a single-agent design, and it requires monitoring and availability guarantees for two separate services rather than one. There is also a risk of information loss or misinterpretation at the handoff boundary if the JSON specification produced by the DA is incomplete or ambiguous.
+- **Advantages:** This configuration provides a clear separation of concerns that mirrors the natural two-stage structure of the process, allowing each agent's context and available tools to remain focused and comparatively lightweight, which in turn improves accuracy and reduces unnecessary token usage.
+- **Disadvantages:** This approach still requires a well-defined and reliable communication protocol to ensure information is transferred accurately between the two agents. It introduces a degree of coordination and latency overhead relative to a single-agent design, and it requires monitoring and availability guarantees for two separate services rather than one. There is also a risk of information loss or misinterpretation.
 
 ## Description Agent (DA)
 

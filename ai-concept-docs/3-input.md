@@ -1,4 +1,4 @@
-![[schema-image.jpeg]]# The Prompt
+# The Prompt
 
 This section of the report addresses the initial prompting phase and its subsequent refinement process. The user submits the initial prompt through a chat interface, which supports both a free-text description of the intended application and the upload of supplementary files containing detailed requirements (e.g., a document specifying business rules or a reference design). Additionally, a planning-step option must be clearly visible within the interface, allowing the user to choose between generating the application immediately or first collaborating with the Description Agent (DA) to plan the application's structure and functionalities in greater detail.
 
