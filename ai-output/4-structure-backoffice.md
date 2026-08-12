@@ -94,7 +94,7 @@ A separate, larger catalog — the **Extensions Store** (its own sidebar entry, 
 - **Metadata**: every section carries a `Title` (32-char max) and `Description` (200-char max, used for SEO/PWA metadata per the Home-page documentation).
 
 **When to use this pattern / audience / tips** (synthesized from the UI and GoodBarber's guidance):
-- *Use it* for any editorially-curated, repeatedly-updated feed — blogs, news, episodic audio/video, changelogs. It is the wrong pattern for a single static page (use `About`/`Link`/custom code instead) or for content owned by an external CMS the user wants mirrored live (use the corresponding `*custom feeds` or platform-specific integration instead).
+- *Use it* for any editorially-curated, repeatedly-updated feed — blogs, news, episodic audio/video, changelogs. It is the wrong pattern for a single static page (use `About`/`Link`/custom code instead) or for content owned by an external CMS the user wants mirrored live (use the corresponding `custom feeds` or platform-specific integration instead).
 - *Audience*: content-driven apps (media, publishing, podcasting, community updates) — matches ReBook's own use case exactly.
 - *Tips*: Categories should be planned before content entry, since they define the internal filtering/browsing structure end users will see; comments should be enabled deliberately since they add moderation overhead; the list/detail design split means visual changes to the feed do not require touching the detail page template, and vice versa — useful for iterating quickly without breaking the "reading" page.
 

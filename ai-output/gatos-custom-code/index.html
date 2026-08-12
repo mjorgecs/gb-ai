@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gatos</title>
+<style type="text/css">
+:root{
+  --gap:12px;
+  --radius:14px;
+  --ink:#1C1C1E;
+  --muted:#8E8E93;
+  --accent:#007AFF;
+  --bg:#FFFFFF;
+  --placeholder:#F2F2F7;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px;
+  line-height:1.4;
+  padding:var(--gap);
+}
+#grid{column-count:2;column-gap:var(--gap)}
+.cat{
+  break-inside:avoid;
+  -webkit-column-break-inside:avoid;
+  page-break-inside:avoid;
+  margin:0 0 var(--gap);
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--placeholder);
+  position:relative;
+  cursor:pointer;
+}
+.cat img{display:block;width:100%;height:auto;border-radius:var(--radius)}
+.msg{text-align:center;color:var(--muted);padding:32px 16px}
+.msg strong{display:block;color:var(--ink);margin-bottom:6px;font-weight:600}
+.msg small{display:block;margin-top:8px;opacity:.7;font-size:12px}
+.btn{
+  display:block;width:100%;
+  margin:4px 0 24px;padding:14px 16px;
+  border:0;border-radius:10px;
+  background:var(--accent);color:#fff;
+  font-family:inherit;font-size:16px;font-weight:600;
+  cursor:pointer;
+}
+.btn[disabled]{opacity:.5;cursor:default}
+#lightbox{
+  position:fixed;top:0;right:0;bottom:0;left:0;
+  background:rgba(0,0,0,.92);
+  display:none;align-items:center;justify-content:center;
+  padding:16px;z-index:9999;
+}
+#lightbox.open{display:flex}
+#lightbox img{max-width:100%;max-height:100%;border-radius:10px;display:block}
+#lightbox .close{
+  position:absolute;top:10px;right:18px;
+  color:#fff;font-size:34px;line-height:1;opacity:.85;
+}
+</style>
+</head>
+<body>
+
+<div id="grid"></div>
+<div id="statusArea"></div>
+<button id="moreBtn" class="btn" style="display:none">Ver mais</button>
+
+<div id="lightbox"><span class="close">&times;</span><img alt=""></div>
+
+<script type="text/javascript">
+/* ==========================================================
+   THE CAT API  —  CONFIGURATION
+   ----------------------------------------------------------
+   >>>  PUT YOUR API KEY BETWEEN THE QUOTES BELOW  <<<
+   Get a free key at https://thecatapi.com/ (it is emailed to you)
+   ========================================================== */
+
+var API_KEY = "";
+
+/* ----------------------------------------------------------
+   Leaving it empty still works, but The Cat API then caps
+   anonymous requests at 10 images per call and ignores the
+   IMAGES_PER_LOAD value below. With a key you can raise it
+   up to 100.
+   ========================================================== */
+
+var IMAGES_PER_LOAD = 12;
+var ENDPOINT = "https://api.thecatapi.com/v1/images/search";
+
+var grid      = document.getElementById("grid");
+var statusEl  = document.getElementById("statusArea");
+var moreBtn   = document.getElementById("moreBtn");
+var lightbox  = document.getElementById("lightbox");
+var lightImg  = lightbox.querySelector("img");
+var isLoading = false;
+
+function setStatus(html){ statusEl.innerHTML = html || ""; }
+
+function addCat(item){
+  if(!item || !item.url){ return; }
+  var cell = document.createElement("div");
+  cell.className = "cat";
+
+  // Reserve the exact space the picture will occupy, so the
+  // masonry columns don't jump around while images download.
+  if(item.width && item.height){
+    cell.style.aspectRatio = item.width + " / " + item.height;
+  }
+
+  var img = document.createElement("img");
+  img.setAttribute("loading", "lazy");
+  img.alt = "Gato";
+  img.addEventListener("load", function(){
+    cell.style.background = "transparent";
+  });
+  img.src = item.url;
+
+  cell.appendChild(img);
+  cell.addEventListener("click", function(){ openLightbox(item.url); });
+  grid.appendChild(cell);
+}
+
+function loadCats(){
+  if(isLoading){ return; }
+  isLoading = true;
+  moreBtn.disabled = true;
+
+  if(!grid.children.length){
+    setStatus('<div class="msg">A carregar gatos&hellip;</div>');
+  }
+
+  var options = { headers: {} };
+  if(API_KEY){ options.headers["x-api-key"] = API_KEY; }
+
+  fetch(ENDPOINT + "?limit=" + IMAGES_PER_LOAD, options)
+    .then(function(res){
+      if(!res.ok){ throw new Error("HTTP " + res.status); }
+      return res.json();
+    })
+    .then(function(data){
+      setStatus("");
+      if(!data || !data.length){
+        if(!grid.children.length){
+          setStatus('<div class="msg"><strong>Sem imagens</strong>A API n&atilde;o devolveu resultados.</div>');
+        }
+        return;
+      }
+      for(var i = 0; i < data.length; i++){ addCat(data[i]); }
+      moreBtn.style.display = "block";
+    })
+    .catch(function(err){
+      var hint = API_KEY
+        ? "Verifica a chave da API e a liga&ccedil;&atilde;o &agrave; internet."
+        : "Verifica a liga&ccedil;&atilde;o &agrave; internet.";
+      setStatus(
+        '<div class="msg"><strong>N&atilde;o foi poss&iacute;vel carregar</strong>' +
+        hint + '<small>' + err.message + '</small></div>'
+      );
+      if(grid.children.length){ moreBtn.style.display = "block"; }
+    })
+    .then(function(){
+      isLoading = false;
+      moreBtn.disabled = false;
+    });
+}
+
+function openLightbox(url){
+  lightImg.src = url;
+  lightbox.classList.add("open");
+}
+function closeLightbox(){
+  lightbox.classList.remove("open");
+  lightImg.src = "";
+}
+
+lightbox.addEventListener("click", closeLightbox);
+moreBtn.addEventListener("click", loadCats);
+
+loadCats();
+</script>
+</body>
+</html>
