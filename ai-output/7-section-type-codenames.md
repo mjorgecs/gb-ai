@@ -31,38 +31,38 @@ Most of what looks like "which of 120 features do I want?" is actually step 2. S
 
 Extracted from all `GBModuleType*` identifiers present in the back-office markup.
 
-| Code-name | Role |
-|---|---|
-| `GBModuleTypeArticle` | Text/article feed (list + detail) |
-| `GBModuleTypePhoto` | Image gallery |
-| `GBModuleTypeVideo` | Video feed |
-| `GBModuleTypeSound` | Audio / podcast feed |
-| `GBModuleTypeMaps` | Geolocated points feed |
-| `GBModuleTypeAgenda` | Events / calendar feed |
-| `GBModuleTypeHome` | The composable widget landing page (singleton) |
-| `GBModuleTypeNode` | Menu / sub-section container (nests other sections) |
-| `GBModuleTypeAbout` | Single static page |
-| `GBModuleTypeContact` | Contact details page |
-| `GBModuleTypeForm` | Form builder |
-| `GBModuleTypeSubmit` | User content submission |
-| `GBModuleTypeSearch` | Cross-section search |
-| `GBModuleTypeBookmark` | Favorites (auto-added) |
-| `GBModuleTypeSettings` | App settings screen (auto-added) |
-| `GBModuleTypeTos` | Legal page — Terms / Privacy (auto-added, ×2) |
-| `GBModuleTypeProfile` | User account / profile |
-| `GBModuleTypeClickto` | Real deep link / external link |
-| `GBModuleTypeFakeclickto` | Link-out styled as a native section (see §3) |
-| `GBModuleTypeCustom` | External URL / embedded web view |
-| `GBModuleTypePlugin` | Installed extension or Custom Code section |
-| `GBModuleTypeLive` | Live audio / live video stream |
-| `GBModuleTypeQrcode` | QR code scanner |
-| `GBModuleTypeFacebook` | Facebook-specific integration |
-| `GBModuleTypeInstagram` | Instagram-specific integration |
-| `GBModuleTypeTwitter` | X (Twitter)-specific integration |
-| `GBModuleTypeShop` | External storefront (Shopify / Amazon / Etsy) |
-| `GBModuleTypeCommerce` | Native eCommerce (Shop-plan apps only) |
-| `GBModuleTypeCommercealias` | eCommerce alias/duplicate view |
-| `GBModuleTypeCommercecollectionslist` | eCommerce collections index |
+| Code-name                             | Role                                                |
+| ------------------------------------- | --------------------------------------------------- |
+| `GBModuleTypeArticle`                 | Text/article feed (list + detail)                   |
+| `GBModuleTypePhoto`                   | Image gallery                                       |
+| `GBModuleTypeVideo`                   | Video feed                                          |
+| `GBModuleTypeSound`                   | Audio / podcast feed                                |
+| `GBModuleTypeMaps`                    | Geolocated points feed                              |
+| `GBModuleTypeAgenda`                  | Events / calendar feed                              |
+| `GBModuleTypeHome`                    | The composable widget landing page (singleton)      |
+| `GBModuleTypeNode`                    | Menu / sub-section container (nests other sections) |
+| `GBModuleTypeAbout`                   | Single static page                                  |
+| `GBModuleTypeContact`                 | Contact details page                                |
+| `GBModuleTypeForm`                    | Form builder                                        |
+| `GBModuleTypeSubmit`                  | User content submission                             |
+| `GBModuleTypeSearch`                  | Cross-section search                                |
+| `GBModuleTypeBookmark`                | Favorites (auto-added)                              |
+| `GBModuleTypeSettings`                | App settings screen (auto-added)                    |
+| `GBModuleTypeTos`                     | Legal page — Terms / Privacy (auto-added, ×2)       |
+| `GBModuleTypeProfile`                 | User account / profile                              |
+| `GBModuleTypeClickto`                 | Real deep link / external link                      |
+| `GBModuleTypeFakeclickto`             | Link-out styled as a native section (see §3)        |
+| `GBModuleTypeCustom`                  | External URL / embedded web view                    |
+| `GBModuleTypePlugin`                  | Installed extension or Custom Code section          |
+| `GBModuleTypeLive`                    | Live audio / live video stream                      |
+| `GBModuleTypeQrcode`                  | QR code scanner                                     |
+| `GBModuleTypeFacebook`                | Facebook-specific integration                       |
+| `GBModuleTypeInstagram`               | Instagram-specific integration                      |
+| `GBModuleTypeTwitter`                 | X (Twitter)-specific integration                    |
+| `GBModuleTypeShop`                    | External storefront (Shopify / Amazon / Etsy)       |
+| `GBModuleTypeCommerce`                | Native eCommerce (Shop-plan apps only)              |
+| `GBModuleTypeCommercealias`           | eCommerce alias/duplicate view                      |
+| `GBModuleTypeCommercecollectionslist` | eCommerce collections index                         |
 
 The three `Commerce*` types and `Profile` never appear in the ReBook catalog — they belong to the Shop product line and to account-enabled apps respectively. They are in the enum but not offered in this app's plan.
 
@@ -124,14 +124,14 @@ Every "+ Add a section" tile observed, grouped by the type it actually creates.
 
 ### Verified on the live app
 
-| Section | `type` | `service` |
-|---|---|---|
-| Artigos (native CMS blog) | `GBModuleTypeArticle` | `mcms` |
-| Notícias (RSS feed) | `GBModuleTypeArticle` | `rss` |
-| Podcasts | `GBModuleTypeSound` | `mcms` |
-| Terms and conditions | `GBModuleTypeTos` | `classictos` |
-| Privacy policy | `GBModuleTypeTos` | `classicprivacy` |
-| Gatos / Lista de desejos | `GBModuleTypePlugin` | *(none)* |
+| Section                   | `type`                | `service`        |
+| ------------------------- | --------------------- | ---------------- |
+| Artigos (native CMS blog) | `GBModuleTypeArticle` | `mcms`           |
+| Notícias (RSS feed)       | `GBModuleTypeArticle` | `rss`            |
+| Podcasts                  | `GBModuleTypeSound`   | `mcms`           |
+| Terms and conditions      | `GBModuleTypeTos`     | `classictos`     |
+| Privacy policy            | `GBModuleTypeTos`     | `classicprivacy` |
+| Gatos / Lista de desejos  | `GBModuleTypePlugin`  | *(none)*         |
 
 **`mcms` = "GoodBarber managed CMS"** — the built-in content editor. It is just one service among many, not a privileged default. "Articles" the catalog tile is really `Article` + `mcms`.
 
@@ -204,10 +204,71 @@ Note `custom` recurs across all six content types — that is the `<Type> custom
 
 ---
 
+## 7. Can structure be changed by editing the JSON? No — and the lock is deliberate
+
+Tested directly on the Advanced settings editor, both the per-section view (`renderJson(<id>)`) and the app-wide view (`Settings > Advanced settings`).
+
+### The editor is values-only
+
+The back office initialises the JSON editor widget with the option **`canChangeProperty: false`**. Consequences, all verified in the live DOM:
+
+- All **539 property-name inputs are `readonly`** — zero are editable. You cannot rename a key, and you cannot create one.
+- The widget's `Add property` / `Add object` / `Add array` / `delete` controls exist in the markup (1342 and 4993 instances respectively) but every one sits inside a container set to `display: none`. They are shipped-but-suppressed.
+- The per-section editor is scoped by a hidden `json_settings_id` field to a **single section id**. It cannot address a sibling section, let alone a new one.
+
+**A new section would be a new key under `gbsettings.sections`. Adding keys is exactly what the editor forbids.** So: no, you cannot add a section by editing JSON.
+
+### Which values are locked tells you what the JSON is *for*
+
+Of 539 editable value fields, exactly **8 are read-only** — and they are precisely the structural/identity ones:
+
+| Locked field | Why it must be |
+|---|---|
+| `type` | Changing it would mean the section is a different class of object entirely |
+| `id` | Server-assigned primary key |
+| `title` (×2) | Owned by Settings; drives the menu label |
+| `contentSource.url` (×2) | The server-side data binding (§5) |
+| `ids`, `category_index` | Taxonomy references to server-side records |
+
+The other 531 fields — fonts, colours, `template`, `thumbFormat`, `thumbPosition`, padding, toolbars — are all freely editable.
+
+That split *is* the design intent, stated in code: **the JSON editor exposes the presentation axis and locks the structural axis.** It's a design tool that happens to look like a data editor. §5 found the same boundary from the other direction — the source binding isn't in this document either.
+
+### So how *does* structure change?
+
+Through dedicated server endpoints that the UI calls, never through the document:
+
+| Operation | Mechanism |
+|---|---|
+| Add a section | `GET /manage/app/content-add-<service>/` — provisions an id, a service record, and a menu link server-side |
+| Reorder | `/manage/section/orderSections/` |
+| Delete | `/manage/content/controlDeleteSection/` |
+| Edit presentation | Advanced settings JSON (staged, then published) |
+
+Note also that JSON edits are **staged, not live** — the back office showed *"You have 84 modifications ready to be published in your app"*. Structure and design changes both queue behind an explicit publish step.
+
+### Why this matters for the AI-integration concept
+
+This is the single most important architectural constraint found so far, because the obvious agent design is wrong:
+
+> ❌ "The agent writes a JSON document describing the app; the platform renders it."
+
+That cannot work. The JSON is not the source of truth for structure — it's a projection of server-side state, with the structural fields deliberately frozen. An agent that builds an app must:
+
+1. **Call provisioning endpoints** to create/order/delete sections (structure),
+2. **Bind data sources** through a separate service-configuration path (§5),
+3. **Write JSON** only for presentation,
+4. **Publish** to make any of it live.
+
+Four distinct capabilities, three of which are *not* JSON authoring. The tool surface an agent needs is therefore an **API/action set**, not a document schema — and the design work is defining those actions, not defining a JSON format.
+
+---
+
 ## Sources
 
 - ReBook back office, Structure screen — `https://rebook.goodbarber.app/manage/app/content/` (live section `data-type` attributes), accessed 2026-08-12.
 - ReBook back office, Add-a-section catalog — `https://rebook.goodbarber.app/manage/app/content-add/` (catalog tile `section-GBModuleType*` classes), accessed 2026-08-12.
 - Advanced settings JSON editor — full raw section objects for `Artigos` (id 78648540, `service: mcms`) and `Notícias` (id 78796277, `service: rss`), captured and diffed on 2026-08-12.
 - Catalog tile creation routes (`/manage/app/content-add-<service>/`) and `service-*` icon classes, same page.
+- Advanced settings JSON editor widget initialisation options (`canChangeProperty: false`) and read-only field audit, per-section and app-wide (`/manage/settings/apisettings/`), 2026-08-13. Read-only inspection only — no modifications were made or saved.
 - Prior report: `ai-output/4-structure-backoffice.md`.
