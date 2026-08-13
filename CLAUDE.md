@@ -7,6 +7,7 @@ The  main goal of this project is to understand the [GoodBarber's Platform](http
 I have created an app using the platform so you can understand how it works: [My GoodBarber Application](https://rebook.goodbarber.app/manage/app/design/).
 
 The information and insights from this project will be used to address some problems related to the AI integration project, which has the goal to integrate Agentic AI tools into the GoodBarber's platform and enable users to create apps by describing them (you can learn more about it by reading the files in the *ai-concept-docs* directory).
+
 # About Me
 
 I am a computer science student. I am very curious and I love learn new subjects.
@@ -20,6 +21,7 @@ I have no previous experience working with AI agents neither other AI-related to
 - Keep reports and summarize concise — bullet points over paragraphs.
 - Save all output files to the output *ai-ouput* folder.
 - Cite sources when doing research.
+
 # Project structure
 
 1. Understand the GoodBarber's platform.
