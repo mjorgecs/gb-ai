@@ -2,14 +2,16 @@
 
 GoodBarber is a No-Code App Builder platform that enables users to create native apps from scratch by selecting and changing sections, properties, etc..
 
-The  main goal of this project is to understand the [GoodBarber's Platform](https://www.goodbarber.com) — its structure, functionalities, limitations, etc.. I have created an app using the platform to get to know how it works: [My GoodBarber Application](https://rebook.goodbarber.app/manage/app/design/).
+The  main goal of this project is to understand the [GoodBarber's Platform](https://www.goodbarber.com) — its structure, functionalities, limitations, etc..
+
+I have created an app using the platform so you can understand how it works: [My GoodBarber Application](https://rebook.goodbarber.app/manage/app/design/).
 
 The information and insights from this project will be used to address some problems related to the AI integration project, which has the goal to integrate Agentic AI tools into the GoodBarber's platform and enable users to create apps by describing them (you can learn more about it by reading the files in the *ai-concept-docs* directory).
 # About Me
 
 I am a computer science student. I am very curious and I love learn new subjects.
 
-I have no previous experience working with AI agents neither other AI-related tools. However, I some expertise working with web development tools (e.g., React, Django, etc), low-level systems (e.g., compressor/decompressor C programs) and I have studied how AI and Agentic AI work (only in theory).
+I have no previous experience working with AI agents neither other AI-related tools. However, I have some experience working with web development tools (e.g., React, Django, etc), low-level systems (e.g., compressor/decompressor C programs) and I have studied how AI and Agentic AI work (only in theory).
 
 # Rules
 
