@@ -297,8 +297,7 @@ Checked against the routing checklist:
 
 ## Sources
 
-- `ai-output/7-section-type-codenames.md` — type enum, catalog mapping and service tables, back-office capture 2026-08-12.
-- `ai-output/4-structure-backoffice.md` — list/detail model, categories, section creation, per-app cap, 2026-08-11.
+- `section-docs/0-section-type-codenames.md` — type enum, catalog mapping and service tables, back-office capture 2026-08-12.
 - [GoodBarber Extensions](https://www.goodbarber.com/extensions/) — extension inventory and pricing lines; Form, Push Notifications, Automatic Push, Geofencing and iBeacons all listed free, accessed 2026-08-13.
 - [Content extensions category](https://www.goodbarber.com/extensions/categories/content/) — CMS Articles, CMS Agenda, CMS About, iCal/vCal and the custom feed family all listed *Free*; no Weather extension present, accessed 2026-08-13.
 - [Weather extension (LAB)](https://www.goodbarber.com/extensions/weather/) — "Display weather data for the city of your choice", in a section or on Home; *"This feature is not yet available in GoodBarber."* Accessed 2026-08-13.

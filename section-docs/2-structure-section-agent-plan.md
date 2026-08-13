@@ -209,7 +209,7 @@ Run before emitting; every failure is a fix or a stated warning.
 
 
 ```
-ai-agent/
+section-agent/
   CLAUDE.md
   SYSTEM-PROMPT.md
   skills/

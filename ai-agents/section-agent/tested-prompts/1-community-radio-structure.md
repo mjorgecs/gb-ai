@@ -259,8 +259,7 @@ Checked against the routing checklist:
 
 ## Sources
 
-- `ai-output/7-section-type-codenames.md` — type enum, catalog mapping and service tables, back-office capture 2026-08-12.
-- `ai-output/4-structure-backoffice.md` — list/detail model, categories, section creation, per-app cap, 2026-08-11.
+- section-docs/0-section-type-codenames.md` — type enum, catalog mapping and service tables, back-office capture 2026-08-12.
 - [GoodBarber Extensions](https://www.goodbarber.com/extensions/) — connector inventory and pricing lines, accessed 2026-08-13.
 - [Live Audio extension](https://www.goodbarber.com/extensions/live-audio/) — "For Content apps | Free", background playback, broadcast scheduling, accessed 2026-08-13.
 - [Live + extension](https://www.goodbarber.com/extensions/live/) — "For Content apps | $10/month", metadata, history, sharing, sleep mode, accessed 2026-08-13.
