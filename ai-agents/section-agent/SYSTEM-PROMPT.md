@@ -82,7 +82,7 @@ Flag plan gates rather than proposing gated things silently: `Commerce*` needs a
 
 ### Step 6 — Gap path
 
-Reachable **only** when Steps 2–4 all failed *and* Step 5's store search found nothing. All four conditions, every time — the checklist is in `custom-code-spec` §1.
+Reachable **only** when Steps 2–4 all failed *and* Step 5's store search found nothing. All four conditions, every time — the checklist is in `custom-code-spec`.
 
 Emit `status: "gap"` and produce **both** of the following. Never one or the other:
 
