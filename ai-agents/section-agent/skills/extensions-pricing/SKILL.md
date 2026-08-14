@@ -25,9 +25,9 @@ If the store is unreachable: fall back to §5's cached figures, and say so in th
 
 They overlap and are not identical. Query the one matching the app.
 
-| Store | URL | Use for |
-|---|---|---|
-| Main catalog | `goodbarber.com/extensions/` | standard apps |
+| Store                | URL                                                | Use for        |
+| -------------------- | -------------------------------------------------- | -------------- |
+| Main catalog         | `goodbarber.com/extensions/`                       | standard apps  |
 | eCommerce collection | `goodbarber.com/extensions/collections/ecommerce/` | Shop-plan apps |
 
 Quoting shop prices to a blog app, or missing a shop-only extension because you searched the main catalog, are both real failure modes. Decide which store applies before searching.
@@ -38,14 +38,14 @@ Main catalog categories, as of 2026-08-13: Content · Local Shop · Memberships 
 
 An extension being listed does not mean it is available to this app. Each state changes what you tell the user.
 
-| State | Meaning | What to say |
-|---|---|---|
-| **Free** | Available on all plans. Most of the catalog. | Proceed. Still date the claim. |
-| **Plan-gated** | Free to use, unlocked from a given tier upward. | Name the required tier before planning around it. |
-| **Paid** | A recurring fee, monthly or annual. | Quote the price and the date. Note a promotional rate as promotional. |
-| **Installed by default** | Already active without anyone choosing it. | Don't plan an install — plan configuration. |
-| **LAB / BETA** | Experimental. | Flag the maturity risk explicitly. `aistudio` (Create with AI) is one of these. |
-| **In test until *date*** | A time-boxed trial. | State the expiry — the capability lapses without action. |
+| State                    | Meaning                                         | What to say                                                           |
+| ------------------------ | ----------------------------------------------- | --------------------------------------------------------------------- |
+| **Free**                 | Available on all plans. Most of the catalog.    | Proceed. Still date the claim.                                        |
+| **Plan-gated**           | Free to use, unlocked from a given tier upward. | Name the required tier before planning around it.                     |
+| **Paid**                 | A recurring fee, monthly or annual.             | Quote the price and the date. Note a promotional rate as promotional. |
+| **Installed by default** | Already active without anyone choosing it.      | Don't plan an install — plan configuration.                           |
+| **LAB / BETA**           | Experimental.                                   | Flag the maturity risk explicitly.                                    |
+| **In test until *date*** | A time-boxed trial.                             | State the expiry — the capability lapses without action.              |
 
 **Never name an extension without its state.** Uniform availability is a false assumption and one of the easiest ways to hand someone a plan they can't afford.
 
@@ -92,8 +92,6 @@ Two that come up often in structure planning:
 - **RAG Chatbot** — `GBModuleTypePlugin` + `rag`. Paid, in the $35–55 band. Any "a chatbot that answers questions about my content" request lands here, and the price is high enough that it must be surfaced immediately rather than at the end.
 - **App Walkthrough** — the canonical mechanism C. A first-launch overlay, not a section. "Show users how the app works" routes here, never to `sections[]`.
 
-  Reported constraints, from the walkthrough editor via `ai-output/6-extensions-store.md` (2026-08-11): mobile only, a small fixed maximum number of screens (recorded as 5), and always skippable. **Verify the screen limit before designing to it** — it isn't in either back-office capture, and it's easy to confuse with the unrelated TabBar link cap. Say "a handful of screens, verify the exact limit" rather than asserting a number.
-
 ## 6. Dependencies
 
 Some capabilities require another extension first. Planning the dependent one without the prerequisite produces a plan that can't be built.
@@ -119,4 +117,4 @@ State the prerequisite and its cost alongside the feature, not separately. "A pe
 
 ---
 
-*Sources: `ai-output/6-extensions-store.md` and the superseded `app-extensions` skill (constraint states, the badge-vs-pricing-line contradiction, the fuzzy-search caution, and the three integration mechanisms — back-office inspection 2026-08-11); [GoodBarber Extensions](https://www.goodbarber.com/extensions/) and [eCommerce extensions collection](https://www.goodbarber.com/extensions/collections/ecommerce/) for categories, tiers and the §5 figures, accessed 2026-08-13.*
+*Sources: [GoodBarber Extensions](https://www.goodbarber.com/extensions/) and [eCommerce extensions collection](https://www.goodbarber.com/extensions/collections/ecommerce/) for categories, tiers and the §5 figures, accessed 2026-08-13.*
