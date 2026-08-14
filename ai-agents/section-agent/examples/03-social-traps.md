@@ -161,5 +161,5 @@ None. All three requests are covered by existing sections.
 
 ## Sources
 
-- `ai-output/7-section-type-codenames.md` — the `Clickto`/`Fakeclickto` distinction and the `Plugin`/`Shop` service lists, back-office capture 2026-08-12.
+- `section-docs/0-section-type-codenames.md` — the `Clickto`/`Fakeclickto` distinction and the `Plugin`/`Shop` service lists, back-office capture 2026-08-12.
 - [GoodBarber Extensions](https://www.goodbarber.com/extensions/) — RAG Chatbot pricing band, accessed 2026-08-13.

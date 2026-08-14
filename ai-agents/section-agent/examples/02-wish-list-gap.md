@@ -328,7 +328,6 @@ Write on every mutation, not on a timer. A webview can be killed at any moment.
 
 ## Sources
 
-- `ai-output/7-section-type-codenames.md` — type enum and the `custom` service, back-office capture 2026-08-12.
-- `ai-output/lista-desejos-custom-code/index.html` — reference implementation of this pattern.
+- `section-docs/0-section-type-codenames.md` — type enum and the `custom` service, back-office capture 2026-08-12.
 - GoodBarber help — [Add custom code to your app](https://www.goodbarber.com/help/customize-your-app-with-developer-tools-r14/add-custom-code-to-your-app-a297/), cited via the superseded `app-structure` skill, not re-fetched 2026-08-13.
 - Extension store search — [GoodBarber Extensions](https://www.goodbarber.com/extensions/), 2026-08-13.

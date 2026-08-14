@@ -167,5 +167,4 @@ None.
 
 ## Sources
 
-- `ai-output/7-section-type-codenames.md` — type enum and service tables, back-office capture 2026-08-12.
-- `ai-output/4-structure-backoffice.md` — list/detail model and categories, 2026-08-11.
+- `section-docs/0-section-type-codenames.md` — type enum and service tables, back-office capture 2026-08-12.

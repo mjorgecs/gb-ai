@@ -195,6 +195,6 @@ None. Every requested feature exists — two as sections, two as extensions.
 
 ## Sources
 
-- `ai-output/7-section-type-codenames.md` — the four commerce-adjacent codenames and their enum descriptions; the note that they never appear in the standard catalog. Back-office capture 2026-08-12.
+- `section-docs/0-section-type-codenames.md` — the four commerce-adjacent codenames and their enum descriptions; the note that they never appear in the standard catalog. Back-office capture 2026-08-12.
 - [Section design (Shop)](https://www.goodbarber.com/help/shop/design-of-your-sections-r89/section-design-a106/) — the documented shop section list and the global product-page design rule, accessed 2026-08-13.
 - [eCommerce extensions collection](https://www.goodbarber.com/extensions/collections/ecommerce/) — extension list, prices, and which entries create a section, accessed 2026-08-13.
