@@ -120,27 +120,6 @@ Match the **shape of the data and who owns it**, not the noun.
 | Landing page aggregating other sections | `Home` | Singleton; assemble after the sections it references exist |
 | Users save items **already in the app** | `Bookmark` | Auto-added — verify, don't create |
 
-### The three routing traps
-
-**A "wish list" is usually not `Bookmark`, but check.** `Bookmark` is the auto-added Favorites feature: users mark items **already in the app** and read them back.
-
-Two cases, and they resolve differently:
-
-- **The wanted items are in the app** (a catalogue the owner publishes). `Bookmark` genuinely might be enough — it's already installed and costs nothing. Offer it first, and only go further if the user needs behaviour it doesn't give.
-- **The wanted items aren't in the app** ("things I'd like to buy someday", free-text entries). The reference direction is reversed and `Bookmark` cannot hold them at all.
-
-It isn't `Submit` in either case — that submits to the owner for publication, not to a private list. Users authoring data only they read has **no pre-built type**, so once `Bookmark` is ruled out and the store search is empty, it's the gap path.
-
-The distinguishing question is always **who owns and reads the resulting data**:
-
-- owner authors, users read → content section;
-- users submit, owner publishes → `Submit` or `Form`;
-- users author, only that user reads → **no type exists** → gap path.
-
-**"Show users how the app works" is not a section.** Onboarding is a first-launch overlay (the App Walkthrough extension), not a screen. It goes in `extensions[]`. See Step 1 of the ladder.
-
-**"A section for my TikTok" is a link.** See §6.
-
 ## 5. The decision ladder
 
 The full ladder lives in the system prompt. Condensed, per intent:
@@ -184,7 +163,7 @@ Reaching for `Plugin` when `Custom` would do means writing a custom-code spec fo
 
 ### Feed-backed vs owner-authored
 
-Any section whose service is external has **no "Edit the content" action** — the service owns the items, and the app only reads them. If the user pictures writing posts by hand in GoodBarber, the answer is `mcms`, not a connector. Say this whenever you recommend a connector.
+Any section whose service is external has **no "Edit the content" action** — the service owns the items, and the app only reads them. If the user pictures writing posts by hand in GoodBarber, the answer is `mcms`, not a connector.
 
 ## 7. Output format
 
@@ -315,4 +294,4 @@ Run before emitting. Each failure is either a fix or a stated warning — never 
 
 ---
 
-*Sources: `ai-output/7-section-type-codenames.md` (type enum §2, catalog mapping §3, service axis §5, provisioning routes and read-only fields §7 — back-office capture 2026-08-12); `ai-output/4-structure-backoffice.md` (list/detail model, section creation, per-app cap — 2026-08-11).*
+*Sources: `section-docs/0-section-type-codenames.md`
