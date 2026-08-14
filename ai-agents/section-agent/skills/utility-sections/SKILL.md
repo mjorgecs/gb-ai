@@ -9,32 +9,32 @@ Everything that isn't a content feed and isn't the shop. Mostly one screen, most
 
 ## 1. Quick reference
 
-| Type | What it is | Service |
-|---|---|---|
-| `GBModuleTypeAbout` | One static page of rich content | `mcms` |
-| `GBModuleTypeContact` | Contact details — address, phone, hours | none |
-| `GBModuleTypeForm` | Form builder, structured input from users | `mcms` |
-| `GBModuleTypeSubmit` | Users propose content for the owner to publish | none |
-| `GBModuleTypeSearch` | Search across the app's content | none |
-| `GBModuleTypeQrcode` | QR code scanner | none |
-| `GBModuleTypeNode` | A menu screen that leads to other sections | none |
-| `GBModuleTypeClickto` | Deep link to an external site or app | none |
-| `GBModuleTypeFakeclickto` | Branded link-out styled as a native section | `clickto*` (§3) |
-| `GBModuleTypeCustom` | A web view pointed at a URL | `typeform` `tawkto` `airtable` `jotform` or none |
-| `GBModuleTypePlugin` | An installed extension or Custom Code | `aistudio` `rag` or none |
-| `GBModuleTypeLive` | Live audio or video stream | `liveradio` `livevideo` |
-| `GBModuleTypeFacebook` | Facebook integration | `facebook` * |
-| `GBModuleTypeInstagram` | Instagram integration | `clicktoinstagram` * |
-| `GBModuleTypeTwitter` | X (Twitter) integration | `clicktotwitter` * |
-| `GBModuleTypeShop` | External storefront link | `shopify` `amazon` `etsy` |
-| `GBModuleTypeHome` | Composable widget landing page | not captured † |
-| `GBModuleTypeBookmark` | Favorites — **auto-added** | not captured † |
-| `GBModuleTypeSettings` | App settings — **auto-added** | not captured † |
-| `GBModuleTypeTos` | Terms / Privacy — **auto-added, ×2** | `classictos` `classicprivacy` |
+| Type                      | What it is                                     | Service                                          |
+| ------------------------- | ---------------------------------------------- | ------------------------------------------------ |
+| `GBModuleTypeAbout`       | One static page of rich content                | `mcms`                                           |
+| `GBModuleTypeContact`     | Contact details — address, phone, hours        | none                                             |
+| `GBModuleTypeForm`        | Form builder, structured input from users      | `mcms`                                           |
+| `GBModuleTypeSubmit`      | Users propose content for the owner to publish | none                                             |
+| `GBModuleTypeSearch`      | Search across the app's content                | none                                             |
+| `GBModuleTypeQrcode`      | QR code scanner                                | none                                             |
+| `GBModuleTypeNode`        | A menu screen that leads to other sections     | none                                             |
+| `GBModuleTypeClickto`     | Deep link to an external site or app           | none                                             |
+| `GBModuleTypeFakeclickto` | Branded link-out styled as a native section    | `clickto*`                                       |
+| `GBModuleTypeCustom`      | A web view pointed at a URL                    | `typeform` `tawkto` `airtable` `jotform` or none |
+| `GBModuleTypePlugin`      | An installed extension or Custom Code          | `aistudio` `rag` or none                         |
+| `GBModuleTypeLive`        | Live audio or video stream                     | `liveradio` `livevideo`                          |
+| `GBModuleTypeFacebook`    | Facebook integration                           | `facebook` *                                     |
+| `GBModuleTypeInstagram`   | Instagram integration                          | `clicktoinstagram` *                             |
+| `GBModuleTypeTwitter`     | X (Twitter) integration                        | `clicktotwitter` *                               |
+| `GBModuleTypeShop`        | External storefront link                       | `shopify` `amazon` `etsy`                        |
+| `GBModuleTypeHome`        | Composable widget landing page                 | not captured †                                   |
+| `GBModuleTypeBookmark`    | Favorites — **auto-added**                     | not captured †                                   |
+| `GBModuleTypeSettings`    | App settings — **auto-added**                  | not captured †                                   |
+| `GBModuleTypeTos`         | Terms / Privacy — **auto-added, ×2**           | `classictos` `classicprivacy`                    |
 
 Known good as of 2026-08-12, and not a closed list.
 
-**\*** The capture lists `facebook`, `clicktoinstagram` and `clicktotwitter` against these three types **as a group**, not one-to-one. The pairing above is the obvious reading and is probably right, but it is inference — emit `serviceVerified: false` for Instagram and X. See §3.
+**\*** The capture lists `facebook`, `clicktoinstagram` and `clicktotwitter` against these three types **as a group**, not one-to-one. The pairing above is the obvious reading and is probably right, but it is inference — emit `serviceVerified: false` for Instagram and X (Twitter).
 
 **†** The service table omits these three types entirely. "Not captured" is not the same as "none" — do not assert either. Emit `"service": null` with `serviceVerified: false`.
 
@@ -89,7 +89,7 @@ The reverse also matters. `Custom` is a web view: it renders an external page an
 
 **`Form` vs `Submit`** — both take input from users, and they differ in what happens next. `Form` collects structured answers for the owner (enquiries, sign-ups, feedback). `Submit` is a contribution pipeline — the user proposes content that the owner reviews and publishes into a content section. If the user's answer becomes app content, it's `Submit`; if it becomes a message, it's `Form`.
 
-Neither is a private per-user list. That's the gap path — see `section-routing` §4.
+Neither is a private per-user list. That's the gap path — see `section-routing`.
 
 **`Search`** — searches the app's own content. Worth including in any app with several content sections and a lot of items; not worth it in a four-section app.
 
@@ -118,4 +118,4 @@ Neither is a private per-user list. That's the gap path — see `section-routing
 
 ---
 
-*Sources: `ai-output/7-section-type-codenames.md` §2–3, §5 (type enum, catalog mapping, the `Clickto`/`Fakeclickto` and `Custom`/`Plugin` distinctions, service lists — back-office capture 2026-08-12); `ai-output/4-structure-backoffice.md` §2, §6 (the "Other sections" area and the auto-added set; Home's widget model and its ordering constraint — 2026-08-11).*
+*Sources: `section-docs/0-section-type-codenames.md`

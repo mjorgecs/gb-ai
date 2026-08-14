@@ -11,7 +11,7 @@ The Shop product line. A separate plan, a separate section set, and a separate e
 
 **Two gates and one honesty requirement.**
 
-**Gate 1 — the plan.** `GBModuleTypeCommerce`, `GBModuleTypeCommercealias`, `GBModuleTypeCommercecollectionslist` are Shop-plan only. `GBModuleTypeProfile` needs an account-enabled app. None appeared in the standard app catalog that was captured. If the user hasn't said they're on a Shop plan, **state the gate before planning the shop**, because the entire plan is void without it.
+**Gate 1 — the plan.** `GBModuleTypeCommerce`, `GBModuleTypeCommercealias`, `GBModuleTypeCommercecollectionslist` are Shop-plan only. `GBModuleTypeProfile` needs an account-enabled app. If the user hasn't said they're on a Shop plan, **state the gate before planning the shop**, because the entire plan is void without it.
 
 **Gate 2 — selling in the app vs linking to a store.** These are different products with very different costs:
 
@@ -96,13 +96,13 @@ A minimal native shop is roughly:
 1. **Collections list** — `GBModuleTypeCommercecollectionslist`. The browse-by-category entry point.
 2. **Products list** — `GBModuleTypeCommerce`. The catalogue. Its detail view is the product page.
 3. **My Account** — `GBModuleTypeProfile`. Orders, addresses, details.
-4. Cart and checkout — provided by the shop; describe in prose, don't invent a type.
+4. **Cart and checkout** — provided by the shop; describe in prose, don't invent a type.
 
 Then, depending on the description:
 
 - Several **product lists scoped to different collections** → `GBModuleTypeCommercealias` for the extras, since it's the duplicate-view type.
 - **Content alongside the shop** — a blog, videos, an about page — are ordinary sections from `content-sections` and `utility-sections`. A shop app is a normal app that also sells.
-- **Behaviours** → `extensions[]` per §3.
+- **Behaviours** → `extensions[]`.
 
 Two design facts worth stating in a plan:
 
@@ -118,9 +118,9 @@ Two design facts worth stating in a plan:
 - [ ] `"service": null` for `Commerce*` — key present, never omitted — with `serviceVerified: false`.
 - [ ] Every shop feature was sorted into section or extension before being planned.
 - [ ] Every extension in `extensions[]` has `createsSection: false`, a price and an `asOf` date.
-- [ ] Prices verified through `extensions-pricing` rather than copied from §3 unchecked.
+- [ ] Prices verified through `extensions-pricing` rather than copied from the table above (§3).
 - [ ] If the user might get a Shop-plan back office, the plan recommends capturing the real codenames.
 
 ---
 
-*Sources: `ai-output/7-section-type-codenames.md` §2 (the four commerce-adjacent codenames and their enum descriptions; the note that they never appear in the standard catalog — back-office capture 2026-08-12); GoodBarber help — [Section design (Shop)](https://www.goodbarber.com/help/shop/design-of-your-sections-r89/section-design-a106/) for the documented shop section list and the global product-page design rule, accessed 2026-08-13; [eCommerce extensions collection](https://www.goodbarber.com/extensions/collections/ecommerce/) for the extension list, prices and which entries create a section, accessed 2026-08-13.*
+*Sources: section-docs/0-section-type-codenames.md; GoodBarber help — [Section design (Shop)](https://www.goodbarber.com/help/shop/design-of-your-sections-r89/section-design-a106/) for the documented shop section list and the global product-page design rule, accessed 2026-08-13; [eCommerce extensions collection](https://www.goodbarber.com/extensions/collections/ecommerce/) for the extension list, prices and which entries create a section, accessed 2026-08-13.*

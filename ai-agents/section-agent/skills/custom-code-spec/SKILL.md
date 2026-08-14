@@ -38,12 +38,6 @@ Constraints that shape every spec:
 
 There are three other Custom Code variants — a **widget** (a fixed-height block on Home), a **navigation mode**, and a **menu section template**. They are not interchangeable with a section. If the feature belongs on the Home page rather than on its own screen, say so and specify the widget instead, noting that its height is fixed and identical across desktop PWA and native mobile.
 
-### What the App API gives you
-
-Worth knowing, because it decides what's feasible: on-device storage (offline-capable), data associated with an authenticated user, adaptation by subscription status, geolocation and opening native map apps, native sharing, system alerts, and connectivity detection.
-
-**Design tokens are contested.** One source says a custom section inherits the app's global App Style automatically; another says tokens are not inherited and the palette must be restated in CSS. Specify defensively: restate the palette and font stack in the CSS, and note that if inheritance works, the restatement is harmless. Do not assert either behaviour as fact.
-
 ## 3. The two decisions to force before writing
 
 Both have real cost and neither has a right default. Put them to the user rather than choosing silently.
@@ -134,16 +128,7 @@ A numbered checklist a developer ticks off. Each item observable — something y
 5. A malformed API response shows the error state rather than a blank screen.
 ```
 
-## 5. Reference implementations
-
-Two Custom Code sections already exist in this repo and are the target shape and level of finish:
-
-- `ai-output/gatos-custom-code/index.html` — an external-API-backed section.
-- `ai-output/lista-desejos-custom-code/index.html` — a wish list, which is the canonical worked answer for the personal-list gap.
-
-Point at these in the spec. A developer reading a real file learns the conventions faster than from any description.
-
-## 6. Before emitting a spec
+## 5. Before emitting a spec
 
 - [ ] All four gap checks in §1 done — particularly the `custom` feed check.
 - [ ] The maintenance liability stated in the report body.
@@ -160,4 +145,4 @@ Point at these in the spec. A developer reading a real file learns the conventio
 
 ---
 
-*Sources: the superseded `app-extensions` skill (Custom Code variants, the CodeMirror single-`index.html` editor, App API capabilities, the client-side-secret and storage cautions, the maintenance-liability rule — back-office inspection 2026-08-11, `ai-output/6-extensions-store.md`); GoodBarber help — [Add custom code to your app](https://www.goodbarber.com/help/customize-your-app-with-developer-tools-r14/add-custom-code-to-your-app-a297/) and [App API documentation](https://app.goodbarber.dev/v2/documentation/), both cited via the superseded skill and not re-fetched on 2026-08-13.*
+*Sources: GoodBarber help — [Add custom code to your app](https://www.goodbarber.com/help/customize-your-app-with-developer-tools-r14/add-custom-code-to-your-app-a297/) and [App API documentation](https://app.goodbarber.dev/v2/documentation/).

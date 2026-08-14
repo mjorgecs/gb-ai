@@ -76,7 +76,7 @@ Known good as of 2026-08-12. Not exhaustive — GoodBarber adds connectors, so a
 
 `mcms` · `kml` · `custom`
 
-**`custom` is on all six.** It is the "point at your own JSON" escape hatch, and forgetting it is the most common way to declare a false gap — see §4.
+**`custom` is on all six.** It is the "point at your own JSON" escape hatch.
 
 ## 3. Picking the service
 
@@ -103,14 +103,6 @@ When a platform has its own service, use it. WordPress content pulled through `r
 So when you suggest a feed URL: check the date of the newest item, not that the URL responds. If it's stale, say so and offer an alternative before anyone builds on it. Note that a live feed satisfies any "must have N items" expectation automatically — and so does a dead one, with dead content. **Check dates, not counts.**
 
 **Many publishers syndicate only headline plus summary.** Full articles stay behind a paywall. That's the normal, intended use of a public feed, but it means the section shows teasers that link out rather than readable in-app articles. Set that expectation rather than letting the user discover it.
-
-### The source is swappable
-
-A content section's source is reported not to be fixed at creation — Settings carries a **Change source** control that reopens the full picker, and repointing an existing section preserves its id, title, description, placement and design.
-
-> *Attribution: observed in the back office and recorded in the superseded `app-structure` skill, not in either of the two capture reports. Treat as reliable but not independently confirmed here.*
-
-Worth stating in a plan when the user is unsure about a source: picking `rss` now and moving to a dedicated connector later is very likely a cheap change rather than a rebuild. It removes the pressure to get the source exactly right in the first pass — but don't promise it as a guarantee.
 
 ## 4. Check `custom` before declaring a gap
 
@@ -152,4 +144,4 @@ When you do route to `custom`, put the prerequisite in the plan: *"requires a JS
 
 ---
 
-*Sources: `ai-output/7-section-type-codenames.md` §5 (the service tables, the server-side adapter model, and the finding that no absolute feed URL appears in the section JSON — back-office capture 2026-08-12); `ai-output/4-structure-backoffice.md` §5 (list/detail anatomy, categories, comments, type-specific settings — 2026-08-11); the superseded `app-structure` skill (feed staleness, the Change-source control, connector-vs-RSS feature difference — back-office inspection 2026-08-11, both flagged inline as unconfirmed here); GoodBarber help — [Connect external content sources for articles](https://www.goodbarber.com/help/publish-and-manage-articles-r94/connect-external-content-sources-for-articles-a19/) and [Create custom content feeds](https://www.goodbarber.com/help/build-custom-content-feeds-r111/create-custom-content-feeds-a287/), both cited via the superseded skill and not re-fetched on 2026-08-13.*
+*Sources: `section-docs/0-section-type-codenames.md`; GoodBarber help — [Connect external content sources for articles](https://www.goodbarber.com/help/publish-and-manage-articles-r94/connect-external-content-sources-for-articles-a19/) and [Create custom content feeds](https://www.goodbarber.com/help/build-custom-content-feeds-r111/create-custom-content-feeds-a287/), both cited via the superseded skill and not re-fetched on 2026-08-13.*
