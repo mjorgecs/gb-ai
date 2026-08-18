@@ -1,14 +1,14 @@
 # Tokens
 
-The AI tools embedded in the platform will be provided by a third-party company through an API service that charges based on the number of input and output tokens processed. Since a token roughly corresponds to a word or a fragment of a word, it is important to keep inputs succinct, describing the application's properties with the minimum number of unnecessary words possible.
+The AI tools embedded in the platform will be provided by a third-party company through an API service that charges based on the number of input and output tokens processed. Since a token roughly corresponds to a word or a fragment of a word [^1], it is important to keep inputs succinct, describing the application's properties with the minimum number of unnecessary words possible.
 
 Rather than being purely a limitation, this constraint represents an opportunity to explore tools and methods that improve the reasoning quality of the agents while minimizing token waste. Beyond the cost implications of the token-based pricing model, there is a second, equally important motivation for improving the agents' reasoning capabilities: the fact that most users will provide short and incomplete descriptions of their intended applications. By focusing on developing a high-quality reasoning process — one that correctly reflects the platform's intended usage — both difficulties can be addressed simultaneously.
 
 # Context Window
 
-As previously discussed, these AI tools are built on Large Language Model (LLM) architectures, which generate responses probabilistically. At each step, the model predicts the most likely next word based on a probability distribution over its entire vocabulary. Since the model's output depends directly on the tokens it can currently "see," it is essential that the instructions and information supplied at inference time are accurate, well-structured, and unambiguous.
+As previously discussed, these AI tools are built on Large Language Model (LLM) architectures, which generate responses probabilistically. At each step, the model predicts the most likely next word based on a probability distribution over its entire vocabulary [^2]. Since the model's output depends directly on the tokens it can currently "see," it is essential that the instructions and information supplied at inference time are accurate, well-structured, and unambiguous [^3].
 
-The model's role, instructions, and background rules are defined within the **context window** — the total space of tokens the model has access to at inference time, comprising the system prompt, tool definitions, retrieved data, and message history, among other elements. Two closely related techniques, **Prompt Engineering** and **Context Engineering**, can be used to improve the quality and accuracy of this context window. The central goal of both techniques is to provide the **smallest** set of high-signal tokens that reliably produces the desired behavior — not the most complete or exhaustive one.
+The model's role, instructions, and background rules are defined within the **context window** — the total space of tokens the model has access to at inference time, comprising the system prompt, tool definitions, retrieved data, and message history, among other elements. Two closely related techniques, **Prompt Engineering** and **Context Engineering**, can be used to improve the quality and accuracy of this context window. The central goal of both techniques is to provide the **smallest** set of high-signal tokens that reliably produces the desired behavior — not the most complete or exhaustive one [^4].
 
 ## Prompt Engineering
 
@@ -43,6 +43,12 @@ As the context window grows larger, it presents an opportunity to include more i
 - May introduce additional latency, since just-in-time retrieval requires extra tool-call round trips instead of making all information available immediately.
 - Requires ongoing evaluation and tuning: determining what constitutes "high-signal" information is not obvious upfront and requires iterative refinement based on real failure cases, representing more overhead than adjusting a single static prompt.
 
----
+## References
 
-_The following section of this report addresses the **prompt** and **refining** processes._
+[^1]: OpenAI. (2026). _What are tokens and how to count them?_ OpenAI Help Center. [https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them)
+
+[^2]: Jurafsky, D., & Martin, J. H. (2025). _Speech and Language Processing: An Introduction to Natural Language Processing, Computational Linguistics, and Speech Recognition with Language Models_ (3.ª ed.). Manuscrito online. [https://web.stanford.edu/~jurafsky/slp3/](https://web.stanford.edu/~jurafsky/slp3/)
+
+[^3]: Anthropic. (2026). _Prompting best practices._ Claude Platform Documentation. [https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
+
+[^4]: Rajasekaran, P., Dixon, E., Ryan, C., & Hadfield, J. (2025). _Effective context engineering for AI agents._ Anthropic Engineering. [https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
