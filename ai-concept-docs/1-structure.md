@@ -6,16 +6,16 @@ Under the **Hybrid Approach**, the app-building process can be modeled as an int
 
 ## User
 
-The user is present throughout the entire process, from the initial description to the final review and any subsequent adjustments. As the only human entity in this interaction, the user is responsible for communicating directly with the Description Agent and for validating or correcting its output when necessary. Given that the quality of an AI agent's output is directly proportional to the quality of the input it receives, the user must be reasonably comfortable articulating the intended structure, functionality, and design of the app in natural language.
+The user is present throughout the entire process, from the initial description to the final review and any subsequent adjustments. As the only human entity in this interaction, the user is responsible for communicating directly with the Description Agent and for validating or correcting its output when necessary. Given that the quality of an AI agent's output is directly proportional to the quality of the input it receives, the user must be reasonably comfortable articulating the intended structure, functionality, and design of the app in natural language [^1].
 
-Since the system relies on large language models (LLMs), the precision and level of detail in the user's description have a direct impact on the quality of the generated application. Users can therefore be broadly classified into two categories:
+Since the system relies on large language models (LLMs), the precision and level of detail in the user's description have a direct impact on the quality of the generated application [^1]. Users can therefore be broadly classified into two categories:
 
 - **Non-expert users:** These users typically provide short, vague, or incomplete descriptions, often lacking the context an AI agent needs to make accurate decisions. They are generally unfamiliar with prompt-engineering techniques and may not understand how their wording maps onto the platform's underlying logic. For example, a non-expert user might describe an app simply as "a shop app for my store," without specifying catalog structure, payment methods, or required integrations.
 - **Expert users:** These users have prior experience either with traditional no-code platforms or with software development, and are consequently more capable of producing detailed, structured, and technically grounded descriptions. This category includes freelancers and agencies who build applications on behalf of clients — a segment that represents a strategic early-adopter group, since exposing the AI tools to this audience first would generate higher-quality feedback and richer training signal for refining the Description Agent's behavior before a broader rollout.
 
 ## App Builder Platform
 
-The App Builder Platform is the pre-existing system that already enables users to create native applications without writing code. Its core strengths lie in its JSON-based application structure — the foundation upon which the entire app-building process is built — and in the mature ecosystem of infrastructure and features already developed around it, including extensions, APIs, layout systems, and integrations.
+The [App Builder Platform](https://www.goodbarber.com/) is the pre-existing system that already enables users to create native applications without writing code. Its core strengths lie in its JSON-based application structure — the foundation upon which the entire app-building process is built — and in the mature ecosystem of infrastructure and features already developed around it, including extensions, APIs, layout systems, and integrations.
 
 Failing to leverage this existing platform would represent a significant strategic misstep. Consequently, any new agentic AI capability must be integrated seamlessly into the platform's existing architecture, preserving its current level of maintainability, code quality, and technical maturity rather than introducing a parallel, disconnected system.
 
@@ -27,21 +27,21 @@ Several agent configurations could be adopted by the platform — ranging from a
 
 Under this configuration, a single AI agent manages the entirety of the interaction with the user — from the initial prompt through the refinement dialogue — and, once a sufficiently detailed description has been reached, proceeds to create the application itself.
 
-- **Advantages:** This is the simplest architecture to design, deploy, and reason about, since there is no inter-agent orchestration, no handoff protocol to define, and no risk of information loss between separate agents. It also minimizes latency, as no additional coordination calls are required between stages, and it is comparatively straightforward to debug, given that the entire process shares a single, unified context.
-- **Disadvantages:** Requiring one agent to handle both the conversational, user-facing description phase and the more technical implementation phase forces it to manage a broad and heterogeneous set of responsibilities, which tends to bloat its context window and dilute the effectiveness of its instructions for any single task. This lack of specialization can reduce output quality relative to an agent narrowly focused on one stage, makes independent optimization of each stage impossible, and creates a single point of failure for the entire pipeline.
+- **Advantages:** This is the simplest architecture to design, deploy, and reason about, since there is no inter-agent orchestration, no handoff protocol to define, and no risk of information loss between separate agents. It also minimizes latency, as no additional coordination calls are required between stages, and it is comparatively straightforward to debug, given that the entire process shares a single, unified context [^2].
+- **Disadvantages:** Requiring one agent to handle both the conversational, user-facing description phase and the more technical implementation phase forces it to manage a broad and heterogeneous set of responsibilities, which tends to bloat its context window and dilute the effectiveness of its instructions for any single task. This lack of specialization can reduce output quality relative to an agent narrowly focused on one stage [^2].
 
 **2. Subagents Approach**
 
 Under this configuration, a central orchestrator agent coordinates a pipeline of specialized subagents, each responsible for a specific stage of the process (e.g., one subagent focused on interpreting design preferences, another on selecting sections, another on recommending extensions). Each subagent processes its stage and passes its output to the next, progressively building the JSON document that represents the application's structure.
 
-- **Advantages:** This approach allows each subagent to specialize narrowly in a single task, which tends to improve accuracy and consistency at each stage compared to a single generalist agent. It also makes the system considerably easier to test, debug, and iterate on, since each subagent's prompt and behavior can be evaluated and refined independently; furthermore, subagents can potentially be reused across different parts of the platform or run in parallel when their tasks are independent of one another.
-- **Disadvantages:** Chaining multiple subagent calls sequentially introduces additional orchestration complexity and latency compared to a single-agent design. Errors or ambiguities produced at one stage can propagate downstream if not explicitly validated before being passed to the next subagent, and the overall token cost tends to be higher, since multiple LLM calls are required to complete a single user request instead of one.
+- **Advantages:** This approach allows each subagent to specialize narrowly in a single task, which tends to improve accuracy and consistency at each stage compared to a single generalist agent. It also makes the system considerably easier to test, debug, and iterate on, since each subagent's prompt and behavior can be evaluated and refined independently; furthermore, subagents can potentially be reused across different parts of the platform or run in parallel when their tasks are independent of one another [^3].
+- **Disadvantages:** Chaining multiple subagent calls sequentially introduces additional orchestration complexity and latency compared to a single-agent design. Errors or ambiguities produced at one stage can propagate downstream if not explicitly validated before being passed to the next subagent, and the overall token cost tends to be higher, since multiple LLM calls are required to complete a single user request instead of one [^2].
 
 **3. Multi-Agent Approach**
 
 Under this configuration, more than one independent, top-level agent handles the overall process, with each agent passing its output to the next — for instance, through a shared structured document (such as a JSON file), a message-passing protocol, or a shared memory/state store — while also being able to delegate its own subagents for specific subtasks when needed.
 
-Having more than one independent agent operating over the same problem raises several concerns that must be carefully weighed: **maintainability**, since each agent may evolve independently and must remain compatible with the others over time; **availability**, since the failure or unavailability of any single agent can interrupt the entire pipeline; **state consistency**, since information must be reliably preserved and correctly interpreted as it crosses agent boundaries; and **operational cost**, since running multiple independent agents is inherently more resource-intensive than running one. For these reasons, it is important to determine the most suitable number of agents for a process that, in this platform's case, naturally consists of two distinct stages — description and implementation.
+Having more than one independent agent operating over the same problem raises several concerns that must be carefully weighed: **maintainability**, since each agent may evolve independently and must remain compatible with the others over time; **availability**, since the failure or unavailability of any single agent can interrupt the entire pipeline; **state consistency**, since information must be reliably preserved and correctly interpreted as it crosses agent boundaries; and **operational cost**, since running multiple independent agents is inherently more resource-intensive than running one. For these reasons, it is important to determine the most suitable number of agents for a process that, in this platform's case, naturally consists of two distinct stages — description and implementation [^2].
 
 The most suitable option is to adopt **two agents** — the Description Agent and the Implementation Agent — because this division aligns directly with the two fundamentally different skill sets the process requires: the description stage is primarily conversational and interpretive, requiring natural-language understanding and sustained, user-facing dialogue, whereas the implementation stage is primarily technical and executional, requiring precise component selection and platform manipulation. Separating these responsibilities allows each agent to maintain a smaller, more focused context window and toolset tailored to its specific task, without requiring the coordination overhead — and the maintainability, availability, and consistency concerns described above — that a larger multi-agent configuration would introduce.
 
@@ -50,7 +50,7 @@ The most suitable option is to adopt **two agents** — the Description Agent an
 
 ## Description Agent (DA)
 
-The Description Agent is the AI entity responsible for extracting, interpreting, and refining all information related to the desired application — including business logic, visual design, and required extensions — based on the user's natural-language input. As an AI agent, the DA possesses the full range of capabilities associated with modern agentic systems (skill composition, data access, and the ability to delegate tasks to specialized subagents), all of which are directed specifically toward the platform's context and operational logic.
+The Description Agent is the AI entity responsible for extracting, interpreting, and refining all information related to the desired application — including business logic, visual design, and required extensions — based on the user's natural-language input. As an AI agent, the DA possesses the full range of capabilities associated with modern agentic systems (skill composition, data access, and the ability to delegate tasks to specialized subagents), all of which are directed specifically toward the platform's context and operational logic [^3].
 
 ### What does the DA need to know?
 
@@ -83,7 +83,7 @@ Under this approach, no predefined JSON schema exists. Instead, the DA follows a
 ```
 
 - **Advantages:** This approach is highly flexible and allows the DA to capture nearly the full richness of the user's description, resulting in a more complete and representative specification.
-- **Disadvantages:** Because the resulting file has no fixed format or fixed set of tags, it becomes harder to process consistently. The Implementation Agent — and any other system consuming this document — must re-interpret an inconsistent structure on every run, which increases processing overhead and the risk of misinterpretation.
+- **Disadvantages:** Because the resulting file has no fixed format or fixed set of tags, it becomes harder to process consistently [^3]. The Implementation Agent — and any other system consuming this document — must re-interpret an inconsistent structure on every run, which increases processing overhead and the risk of misinterpretation.
 
 **2. Pre-structured (schema-based) JSON**
 
@@ -112,3 +112,9 @@ Although the detailed design of the Implementation Agent falls outside the scope
 ---
 
 _The following section of this report addresses the prompt and refining processes._
+
+[^1]: Zi, Y., Menon, H., & Guha, A. (2025). _More Than a Score: Probing the Impact of Prompt Specificity on LLM Code Generation._ arXiv. [https://arxiv.org/abs/2508.03678](https://arxiv.org/abs/2508.03678)
+
+[^2]: Phillips, C. (2026). _Building multi-agent systems: When and how to use them._ Claude Blog. [https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)
+
+[^3]: Schluntz, E., & Zhang, B. (2024). _Building effective agents._ Anthropic Engineering. [https://www.anthropic.com/engineering/building-effective-agents](https://www.anthropic.com/engineering/building-effective-agents)
