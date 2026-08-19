@@ -109,9 +109,7 @@ Given the structured document produced by the Description Agent, the Implementat
 
 Although the detailed design of the Implementation Agent falls outside the scope of the present project, it constitutes a critical stage in the overall pipeline, since it is ultimately responsible for translating the DA's specification into a functioning, shippable application.
 
----
-
-_The following section of this report addresses the prompt and refining processes._
+## References
 
 [^1]: Zi, Y., Menon, H., & Guha, A. (2025). _More Than a Score: Probing the Impact of Prompt Specificity on LLM Code Generation._ arXiv. [https://arxiv.org/abs/2508.03678](https://arxiv.org/abs/2508.03678)
 
