@@ -1,0 +1,17 @@
+
+## 3. Cross-cutting families (not owned by one section type)
+
+|Family|n|Variants|Source|
+|---|---|---|---|
+|`GBWidgetContentTemplateType…`|26|ListUneClassic · ListClassic · ListSplit · ListCard · ListEdgeToEdge · ListGrid · ListVisual · HighlightUneGrid · HighlightGrid · BannerMinimal · BannerClassic · BannerPolaroid · BannerVisual · BannerVisualCard · BannerVisualCardSmall · MapView · GrenadineVisual · CardGrenadine · ImmersiveCardGrenadine · ListGrenadine · ListEnriched · ListCondensed · StoryImmersiveGrenadine · ListImmersiveCardGrenadine · ListVisualCardListCondensed · ImmersiveStorySlideCondensed|`SettingsManager+Widgets.h:156-238`|
+|`GBWidgetNavigationTemplateType…`|12|ListVisual · ListGrid · ListVisualIcon · ListGridIcon · BannerSmallSlideshow · BannerBigSlideshow · BannerSmallCarousel · BannerBigCarousel · RemoteGrid · Shortcuts · VisualShortcut · Custom|`SettingsManager+Widgets.h:174-196`|
+|`GBCategoriesTemplateType…`|13|List · CircleBand · Filters · Expandable · Pager · Arrows · Overlay · Ghost · IconCircleBand · Dropdown · Tags · Labels · GrenadineFilters|`BGConstants.h:2465-2487`|
+|`GBLoginTemplate…`|3|Long · Short · Social|`SettingsManager+LoginView.h` (`LoginTemplate`)|
+|`GBWalkthroughTemplateType…`|2|Immersive · Polaroid|`BGConstants.h:1508-1510`|
+|`GBWidgetNewsletterTemplateTypeClassic`|1|Classic|`SettingsManager+Widgets.h:214`|
+|`GBCommentTemplateTypeClassic`|1|Classic|`BGConstants.h:1708`|
+|`GBMenuListTemplateTypeClassic`|1|Classic|`BGConstants.h:2596`|
+
+**`Widget*` belongs to `GBModuleTypeHome`.** Home has no template of its own — it is a stack of widgets, each carrying its own `WidgetContent` or `WidgetNavigation` template. That is where Home's combinatorial space lives.
+
+**`Categories` applies to every feed type** (Article, Video, Photo, Sound, Maps, Agenda) — it styles the filter bar, not the section.
