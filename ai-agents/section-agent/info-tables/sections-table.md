@@ -1,3 +1,4 @@
+
 | Codename                              | Role                                          |
 | ------------------------------------- | --------------------------------------------- |
 | `GBModuleTypeArticle`                 | Text/article feed (list + detail)             |

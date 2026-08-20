@@ -43,18 +43,18 @@ Known good as of 2026-08-12. Not exhaustive — GoodBarber adds connectors, so a
 
 ### `GBModuleTypeArticle`
 
-| Service | Source |
-|---|---|
-| `mcms` | The built-in CMS — the owner writes posts in GoodBarber |
-| `wordpress` | A self-hosted WordPress site |
-| `wordpressdotcom` | WordPress.com |
-| `rss` | Any RSS/Atom feed |
-| `substack` | Substack |
-| `medium` | Medium |
-| `squarespace` | Squarespace |
-| `blogger` | Blogger |
-| `wmarticle` | GoodBarber's own WMaker CMS |
-| `custom` | Your own JSON matching GoodBarber's Content API spec |
+| Service           | Source                                                  |
+| ----------------- | ------------------------------------------------------- |
+| `mcms`            | The built-in CMS — the owner writes posts in GoodBarber |
+| `wordpress`       | A self-hosted WordPress site                            |
+| `wordpressdotcom` | WordPress.com                                           |
+| `rss`             | Any RSS/Atom feed                                       |
+| `substack`        | Substack                                                |
+| `medium`          | Medium                                                  |
+| `squarespace`     | Squarespace                                             |
+| `blogger`         | Blogger                                                 |
+| `wmarticle`       | GoodBarber's own WMaker CMS                             |
+| `custom`          | Your own JSON matching GoodBarber's Content API spec    |
 
 ### `GBModuleTypeSound`
 
