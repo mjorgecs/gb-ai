@@ -19,52 +19,52 @@
 | Service      | Source                   |
 | ------------ | ------------------------ |
 | `podcast`    | (a podcast RSS feed)     |
-| `soundcloud` |                          |
+| `soundcloud` | -                        |
 | `anchor`     | (Spotify for Podcasters) |
-| `spreaker`   |                          |
-| `ausha`      |                          |
-| `simplecast` |                          |
-| `wmpodcast`  |                          |
-| `custom`     |                          |
-| `mcms`       |                          |
+| `spreaker`   | -                        |
+| `ausha`      | -                        |
+| `simplecast` | -                        |
+| `wmpodcast`  | -                        |
+| `custom`     | -                        |
+| `mcms`       | -                        |
 
 ### `GBModuleTypeVideo`
 
-| Service        | Source |
-| -------------- | ------ |
-| `mcms`         |        |
-| `youtube`      |        |
-| `dailymotion`  |        |
-| `rss`          |        |
-| `videopodcast` |        |
-| `vimeo`        |        |
-| `wmvideo`      |        |
-| `custom`       |        |
+| Service        |
+| -------------- |
+| `mcms`         |
+| `youtube`      |
+| `dailymotion`  |
+| `rss`          |
+| `videopodcast` |
+| `vimeo`        |
+| `wmvideo`      |
+| `custom`       |
 
 
 ### `GBModuleTypePhoto`
 
-| Service                   | Source |
-| ------------------------- | ------ |
-| `mcms`                    |        |
-| `flickr`                  |        |
-| `instagram`               |        |
-| `wmphoto` `custom` `mcms` |        |
+| Service   |
+| --------- |
+| `mcms`    |
+| `flickr`  |
+| `wmphoto` |
+| `custom`  |
+| `mcms`    |
 
 ### `GBModuleTypeAgenda`
 
-| Service          | Source      |
-| ---------------- | ----------- |
-| `mcms`           |             |
-| `facebookevents` |             |
-| `vcalendar`      | (iCal/vCal) |
-| `wmevent`        |             |
-| `custom`         |             |
+| Service     | Notes       |
+| ----------- | ----------- |
+| `mcms`      | -           |
+| `vcalendar` | (iCal/vCal) |
+| `wmevent`   | -           |
+| `custom`    | -           |
 
 ### `GBModuleTypeMaps`
 
-| Service     | Source      |
-| ----------- | ----------- |
-| `mcms`      |             |
-| `klm`       |             |
-| `custom`    |             |
+| Service  |
+| -------- |
+| `mcms`   |
+| `klm`    |
+| `custom` |
