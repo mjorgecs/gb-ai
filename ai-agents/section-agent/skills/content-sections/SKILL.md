@@ -1,6 +1,6 @@
 ---
 name: content-sections
-description: "Choose the service behind a GoodBarber content feed — the six list-plus-detail section types (Article, Photo, Video, Sound, Maps, Agenda) and the connectors that fill them. Use when a described feature is a repeating feed of items: a blog, news, a gallery, videos, a podcast, events, a calendar, or places on a map. Covers picking between the built-in CMS, a platform connector, a plain RSS feed, and a custom JSON feed; validating that an external feed is still alive; and the categories and list/detail model these sections share. Do NOT use for static pages, forms or links (use utility-sections), for selling products (use commerce-sections), or for choosing the type itself (use section-routing)."
+description: "Choose the service behind a GoodBarber content feed — the six list-plus-detail section types (Article, Photo, Video, Sound, Maps, Agenda) and the connectors that fill them. Use when a described feature is a repeating feed of items: a blog, news, a gallery, videos, a podcast, events, a calendar, or places on a map. Covers picking between the built-in CMS, a platform connector, a plain RSS feed, and a custom JSON feed; validating that an external feed is still alive; and the categories and list/detail model these sections share. Do NOT use for static pages, forms or links (use utility-sections), or for choosing the type itself (use section-routing)."
 ---
 
 # Content Sections
@@ -58,23 +58,57 @@ Known good as of 2026-08-12. Not exhaustive — GoodBarber adds connectors, so a
 
 ### `GBModuleTypeSound`
 
-`mcms` · `anchor` (Spotify for Podcasters) · `spreaker` · `ausha` · `podcast` (a podcast RSS feed) · `simplecast` · `wmpodcast` · `custom`
+| Service      | Source                   |
+| ------------ | ------------------------ |
+| `podcast`    | (a podcast RSS feed)     |
+| `soundcloud` | —                        |
+| `anchor`     | (Spotify for Podcasters) |
+| `spreaker`   | —                        |
+| `ausha`      | —                        |
+| `simplecast` | —                        |
+| `wmpodcast`  | —                        |
+| `custom`     | —                        |
+| `mcms`       | —                        |
 
 ### `GBModuleTypeVideo`
 
-`mcms` · `youtube` · `vimeo` · `dailymotion` · `videopodcast` · `wmvideo` · `custom`
+| Service        |
+| -------------- |
+| `mcms`         |
+| `youtube`      |
+| `dailymotion`  |
+| `rss`          |
+| `videopodcast` |
+| `vimeo`        |
+| `wmvideo`      |
+| `custom`       |
 
 ### `GBModuleTypePhoto`
 
-`mcms` · `flickr` · `wmphoto` · `custom`
+| Service   |
+| --------- |
+| `mcms`    |
+| `flickr`  |
+| `wmphoto` |
+| `custom`  |
+| `mcms`    |
 
 ### `GBModuleTypeAgenda`
 
-`mcms` · `vcalendar` (iCal/vCal) · `wmevent` · `custom`
+| Service     | Notes       |
+| ----------- | ----------- |
+| `mcms`      | —           |
+| `vcalendar` | (iCal/vCal) |
+| `wmevent`   | —           |
+| `custom`    | —           |
 
 ### `GBModuleTypeMaps`
 
-`mcms` · `kml` · `custom`
+| Service  |
+| -------- |
+| `mcms`   |
+| `klm`    |
+| `custom` |
 
 **`custom` is on all six.** It is the "point at your own JSON" escape hatch.
 

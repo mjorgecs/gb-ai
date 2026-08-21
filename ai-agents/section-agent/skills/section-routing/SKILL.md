@@ -1,6 +1,6 @@
 ---
 name: section-routing
-description: The core routing skill for planning a GoodBarber app structure from a plain-English description. Use for every structure-planning request. Owns the complete GBModuleType* codename enum, the catalog-name-to-type mapping, the decision ladder that turns a described feature into a type plus a service, the output document schema, and the validation rules run before emitting. Use when deciding what section a described feature needs, when checking whether a codename is real, or when assembling the final report. Do NOT use to choose a service for a content feed (use content-sections), to price an extension (use extensions-pricing), or to write a spec for a missing feature (use custom-code-spec).
+description: The core routing skill for planning a GoodBarber app structure from a plain-English description. Use for every structure-planning request. Owns the complete GBModuleType* codename enum, the catalog-name-to-type mapping, the decision ladder that turns a described feature into a type plus a service, the output document schema, and the validation rules run before emitting. Use when deciding what section a described feature needs, when checking whether a codename is real, or when assembling the final report. Do NOT use to choose a service for a content feed (use content-sections).
 ---
 
 # Section Routing
@@ -16,7 +16,7 @@ A GoodBarber app is a set of **sections**. Every section carries two independent
 
 They are orthogonal, and conflating them is the classic error. "A blog fed by my WordPress" is not one exotic choice out of a hundred catalog tiles — it is `type: GBModuleTypeArticle` plus `service: wordpress`, two small independent decisions.
 
-This matters because the catalog lies about the size of the problem. The "+ Add a section" catalog showed **84 tiles resolving to 30 types** (as of 2026-08-12). Thirteen of those tiles — WordPress, Medium, Substack, Blogger, Squarespace, RSS, WP.com, WMaker, Article custom feeds and more — are all the same type. What separates them is the service axis alone.
+This matters because the catalog lies about the size of the problem. Thirteen of those tiles — WordPress, Medium, Substack, Blogger, Squarespace, RSS, WP.com, WMaker, Article custom feeds and more — are all the same type. What separates them is the service axis alone.
 
 > **Read `type` and `service` as two questions, never one.**
 
@@ -28,7 +28,7 @@ So your output is a **plan of actions**, not a document to paste. Each section y
 
 ## 2. The type enum
 
-Thirty codenames, captured from a live back office on 2026-08-12. This is the closed vocabulary — **use these exact strings, and never invent one.**
+Codenames, captured from a live back office on 2026-08-12. This is the closed vocabulary — **use these exact strings, and never invent one.**
 
 | Codename                              | Role                                          |
 | ------------------------------------- | --------------------------------------------- |
@@ -59,11 +59,9 @@ Thirty codenames, captured from a live back office on 2026-08-12. This is the cl
 | `GBModuleTypeInstagram`               | Instagram integration                         |
 | `GBModuleTypeTwitter`                 | X (Twitter) integration                       |
 | `GBModuleTypeShop`                    | External storefront (Shopify / Amazon / Etsy) |
-| `GBModuleTypeCommerce`                | Native eCommerce (Shop plans)                 |
-| `GBModuleTypeCommercealias`           | eCommerce alias/duplicate view                |
-| `GBModuleTypeCommercecollectionslist` | eCommerce collections index                   |
+| `GBModuleTypeUserslist`               | Directory of app users                        |
 
-Thirty is what was present that day, not a guarantee about today. If a request clearly needs something none of these covers, that is the gap path — **not** a licence to coin a thirty-first constant.
+These types are what was present that day, not a guarantee about today. If a request clearly needs something none of these covers, that is the gap path.
 
 Four of these are **auto-added** to apps and must never be proposed as new sections: `Bookmark`, `Settings`, and `Tos` twice (terms and privacy). `Home` is a **singleton** — one per app, never a second.
 
@@ -94,31 +92,29 @@ When the user names a catalog tile, this is the translation. Grouped by the type
 
 Match the **shape of the data and who owns it**, not the noun.
 
-| What the user describes | Type | Watch out for |
-|---|---|---|
-| A feed of written items the owner updates — blog, news, changelog, guides | `Article` | → `content-sections` for the service |
-| A gallery of images | `Photo` | — |
-| A feed of videos | `Video` | — |
-| Audio episodes, a podcast, a radio archive | `Sound` | Live streaming is `Live`, not `Sound` |
-| Places on a map, locations, points of interest | `Maps` | — |
-| Events with dates, a calendar, a schedule | `Agenda` | — |
-| One static page — about, credits, legal text, an "info" page | `About` | Not a content section; one non-repeating page |
-| Address, phone, opening hours | `Contact` | — |
-| Collect structured input from users | `Form` | — |
-| Users propose content for the owner to publish | `Submit` | Public contribution pipeline, not a private list |
-| Search across the app's content | `Search` | — |
-| Scan a QR code | `Qrcode` | — |
-| A grouping screen that leads to other sections | `Node` | The only nesting the platform has |
-| Open an external site or app from the menu | `Clickto` | Adds a nav entry, creates no screen |
-| Embed an existing web page, form or chat widget | `Custom` | **Not** `Plugin` — see §6 |
-| TikTok, Reddit, WhatsApp, Discord, Threads, Snapchat | `Fakeclickto` | **It's a link.** Mandatory disclosure — §6 |
-| Facebook, Instagram, X | `Facebook` / `Instagram` / `Twitter` | First-class types, unlike the six above |
-| A live radio or live video stream | `Live` | — |
-| Link out to a Shopify / Amazon / Etsy store | `Shop` | External storefront. Native selling is `Commerce` → `commerce-sections` |
-| Sell products inside the app, collections, customer accounts | `Commerce*` / `Profile` | → `commerce-sections`; Shop-plan gated |
-| An installed extension, an AI chatbot over your documents, or bespoke code | `Plugin` | → `extensions-pricing` or `custom-code-spec` |
-| Landing page aggregating other sections | `Home` | Singleton; assemble after the sections it references exist |
-| Users save items **already in the app** | `Bookmark` | Auto-added — verify, don't create |
+| What the user describes                                                    | Type                                 | Watch out for                                                           |
+| -------------------------------------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------- |
+| A feed of written items the owner updates — blog, news, changelog, guides  | `Article`                            | → `content-sections` for the service                                    |
+| A gallery of images                                                        | `Photo`                              | —                                                                       |
+| A feed of videos                                                           | `Video`                              | —                                                                       |
+| Audio episodes, a podcast, a radio archive                                 | `Sound`                              | Live streaming is `Live`, not `Sound`                                   |
+| Places on a map, locations, points of interest                             | `Maps`                               | —                                                                       |
+| Events with dates, a calendar, a schedule                                  | `Agenda`                             | —                                                                       |
+| One static page — about, credits, legal text, an "info" page               | `About`                              | Not a content section; one non-repeating page                           |
+| Address, phone, opening hours                                              | `Contact`                            | —                                                                       |
+| Collect structured input from users                                        | `Form`                               | —                                                                       |
+| Users propose content for the owner to publish                             | `Submit`                             | Public contribution pipeline, not a private list                        |
+| Search across the app's content                                            | `Search`                             | —                                                                       |
+| Scan a QR code                                                             | `Qrcode`                             | —                                                                       |
+| A grouping screen that leads to other sections                             | `Node`                               | The only nesting the platform has                                       |
+| Open an external site or app from the menu                                 | `Clickto`                            | Adds a nav entry, creates no screen                                     |
+| Embed an existing web page, form or chat widget                            | `Custom`                             | **Not** `Plugin` — see §6                                               |
+| TikTok, Reddit, WhatsApp, Discord, Threads, Snapchat                       | `Fakeclickto`                        | **It's a link.** Mandatory disclosure — §6                              |
+| Facebook, Instagram, X                                                     | `Facebook` / `Instagram` / `Twitter` | First-class types, unlike the six above                                 |
+| A live radio or live video stream                                          | `Live`                               | —                                                                       |
+| Link out to a Shopify / Amazon / Etsy store                                | `Shop`                               | External storefront.                      |
+| Landing page aggregating other sections                                    | `Home`                               | Singleton; assemble after the sections it references exist              |
+| Users save items **already in the app**                                    | `Bookmark`                           | Auto-added — verify, don't create                                       |
 
 ## 5. The decision ladder
 
@@ -128,13 +124,11 @@ The full ladder lives in the system prompt. Condensed, per intent:
 0. Decompose the description into intents, and say the split out loud.
 1. Screen or behaviour?  behaviour → extensions[], skip to 5
 2. Type      → §4. no fit → 5 (NOT 6 — a missing type is not yet a gap)
-3. Service   → content-sections / commerce-sections. platform not listed → look it up
+3. Service   → content-sections. platform not listed → look it up
 4. custom?   → if type is a content type and 3 found nothing, `custom` is available
-5. Look up   → search the store if 2 found nothing; price anything billable; state
-               the constraint state and the asOf date
-6. Gap       → only if 2, 3, 4 AND 5 all came up empty.
-               status:"gap" + alternatives[] AND customCode{}, both required
-7. Validate  → §8, then emit
+5. Gap       → only if 2, 3 AND 4 all came up empty.
+               alternatives[]
+6. Validate  → §8, then emit
 ```
 
 **Two steps get skipped, and both produce false gaps.**
@@ -169,17 +163,13 @@ Any section whose service is external has **no "Edit the content" action** — t
 
 One Markdown report containing a fenced JSON block.
 
-Prose carries what JSON can't: the reasoning, the disclosures, and the custom-code specification — which is multi-section prose with a data contract and cannot survive being a JSON string. The JSON block carries what prose can't: a machine-readable plan for a later implementation step.
+Prose carries what JSON can't: the reasoning and the disclosures. The JSON block carries what prose can't: a machine-readable plan for a later implementation step.
 
 ### Report structure
 
 ```
 # App Structure — <app name>
 ## Summary          what the app is, how many sections, total monthly cost
-## Sections         one ## per section: intent → type → service → price → notes
-## Extensions       behaviours with no section of their own
-## Gaps             per gap: alternatives table, then the full custom-code spec
-## Validation       what was checked, what was flagged
 ## Plan (JSON)      the fenced block
 ## Sources          with access dates
 ```
@@ -202,15 +192,7 @@ Prose carries what JSON can't: the reasoning, the disclosures, and the custom-co
       "service": "rss",
       "serviceVerified": true,
       "catalogEntry": "RSS feeds",
-      "createRoute": "/manage/app/content-add-rss/",
-      "createRouteVerified": true,
-      "sourceBinding": {
-        "required": true,
-        "kind": "feedUrl",
-        "suggested": "https://example.com/feed.xml",
-        "note": "Bound server-side in section Settings. Not part of the section JSON."
-      },
-      "pricing": { "tier": "free", "asOf": "YYYY-MM-DD" },
+      "template": ,
       "notes": "Feed-backed — no 'Edit the content' action; the service owns the items."
     },
     {
@@ -223,31 +205,21 @@ Prose carries what JSON can't: the reasoning, the disclosures, and the custom-co
       "service": null,
       "serviceVerified": true,
       "catalogEntry": null,
+      "template": ,
       "alternatives": [
         {
           "type": "GBModuleTypeBookmark",
           "shortfall": "Saves items already in the app; users cannot add things the app doesn't carry."
         }
-      ],
-      "customCode": {
-        "type": "GBModuleTypePlugin",
-        "service": null,
-        "createRoute": null,
-        "createRouteVerified": false,
-        "specSection": "#custom-code-wish-list"
-      },
-      "pricing": { "tier": "free", "asOf": "YYYY-MM-DD" }
+      ]
     }
   ],
   "extensions": [
     {
       "name": "Loyalty Program",
-      "createsSection": false,
-      "pricing": { "tier": "paid", "price": "$10/month", "asOf": "YYYY-MM-DD" },
       "note": "Configured on the shop; adds no section to the structure."
     }
-  ],
-  "validation": { "sectionCount": 2, "warnings": [] }
+  ]
 }
 ```
 
@@ -256,21 +228,11 @@ Prose carries what JSON can't: the reasoning, the disclosures, and the custom-co
 - **`status`** is one of three:
   - `"matched"` — a type was found. `type` is a non-null codename.
   - `"gap"` — no type, no service, no extension. `type: null`, and **both** `alternatives` and `customCode` required.
-  - `"undetermined"` — the screen exists in the platform but its codename wasn't captured. `type: null`, no `alternatives`, no `customCode`, and a `notes` field saying what's missing and why you didn't guess. Shop Cart and Order are the known cases. This status exists so that "I don't know the constant" never has to masquerade as either a match or a gap.
+  - `"undetermined"` — the screen exists in the platform but its codename wasn't captured. `type: null`, no `alternatives` and a `notes` field saying what's missing and why you didn't guess. This status exists so that "I don't know the constant" never has to masquerade as either a match or a gap.
 - **`service`** is always present. Emit `null` explicitly for types that take none — never omit the key.
 - **`catalogEntry`** is always present, `null` if no tile corresponds.
-- **`sourceBinding`** is a **separate provisioning step**, not a field written into the section JSON. The feed URL genuinely does not live in the section document — it's a server-side record keyed by section id, edited in Settings.
-- **`createRoute`** — see the caveat below. When it can't be derived, emit `null` with `createRouteVerified: false`.
-- **`pricing.asOf`** is required on every entry, free ones included. "Free as of today" is a checkable claim; "free" is not.
 - **`typeVerified: false`** means *this type being right for this intent* was inferred, not observed. A codename existing in §2 is not the same as having seen it on a live section of the kind you're describing. The whole `Commerce*` family is `false`, including `Commercecollectionslist` — a strong name match is still a name match.
-- **`planRequirement`** — optional top-level string. Present when the whole plan depends on a plan tier (Shop plans, account-enabled apps).
 - There is no `sectionLimit` field. Apps carry a per-app instance cap the back office reports at runtime; you don't assert it and never use it to limit a plan.
-
-**The `createRoute` caveat.** The pattern `/manage/app/content-add-<service>/` was read off catalog tiles, and it is keyed on **the tile**, not the service. Where a service maps 1:1 to a tile — `rss`, `shopify`, `rag`, `clicktotiktok` — the route follows and is reliable.
-
-Where it doesn't, the pattern breaks. `mcms` is the service for `Article`, `Photo`, `Video`, `Sound`, `Maps`, `Agenda`, `About` and `Form` — eight different tiles. One URL cannot provision eight types, so `/manage/app/content-add-mcms/` is not a real route and must never be emitted. Same for `custom`, which covers six tiles.
-
-So: **`mcms` and `custom` sections get `createRoute: null`** with `createRouteVerified: false` and a note that the tile-specific route wasn't captured. Custom Code has no service at all and also gets `null`. Emitting a route you can't derive is worse than emitting none.
 
 ## 8. Validation checklist
 
@@ -278,15 +240,11 @@ Run before emitting. Each failure is either a fix or a stated warning — never 
 
 - [ ] Every non-null `type` is a verbatim string from §2. Nothing invented. `null` only on `"gap"` or `"undetermined"`.
 - [ ] Every `service` key is present, `null` where the type takes none, and otherwise in the known list for **that specific type** or carrying `serviceVerified: false`. `mcms` is not universal — `Photo` has it, `Clickto` does not.
-- [ ] Every `status: "gap"` carries **both** `alternatives` and `customCode`.
+- [ ] Every `status: "gap"` carries `alternatives`.
 - [ ] Every gap passed **all four** checks: no type, no `custom` service, no `GBModuleTypeCustom` web view, and an empty store search. Steps 4 and 5 are the ones that get skipped.
 - [ ] Every `status: "undetermined"` says in `notes` what wasn't captured and why nothing was guessed.
-- [ ] No `createRoute` emitted for an `mcms` or `custom` service, or for Custom Code. Those are `null`.
-- [ ] Every externally-fetching service has a `sourceBinding`.
-- [ ] Every `pricing` object has an `asOf` date, and any figure taken from cache rather than a live check says so.
 - [ ] Behaviours that create no screen are in `extensions[]`, not `sections[]`.
 - [ ] `Home` appears at most once; `Bookmark`, `Settings`, `Tos` are referenced, never created.
-- [ ] `Commerce*` and `Profile` carry their plan gate, stated in prose as well as flagged.
 - [ ] Every `Fakeclickto` section says, in prose, that it is a link.
 - [ ] Every connector-backed section says, in prose, that content can't be authored in-app.
 - [ ] Section count is reported, not capped.

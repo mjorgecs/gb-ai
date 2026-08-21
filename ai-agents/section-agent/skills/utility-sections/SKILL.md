@@ -1,6 +1,6 @@
 ---
 name: utility-sections
-description: Plan the non-feed GoodBarber sections — static pages, contact details, forms, user submissions, search, QR scanning, menu containers, external links, embedded web views, live streams, social integrations and external storefront links. Use when a described feature is a single page rather than a repeating feed, or when the request names a social network, an embedded third-party tool, a live stream, or a link out of the app. Owns the mandatory disclosure that TikTok, Reddit, WhatsApp, Discord, Threads and Snapchat sections are links rather than embedded feeds, and the distinction between an embedded web view and code running in the app. Do NOT use for feeds of items (use content-sections) or for selling products (use commerce-sections).
+description: Plan the non-feed GoodBarber sections — static pages, contact details, forms, user submissions, search, QR scanning, menu containers, external links, embedded web views, live streams, social integrations and external storefront links. Use when a described feature is a single page rather than a repeating feed, or when the request names a social network, an embedded third-party tool, a live stream, or a link out of the app. Owns the mandatory disclosure that TikTok, Reddit, WhatsApp, Discord, Threads and Snapchat sections are links rather than embedded feeds, and the distinction between an embedded web view and code running in the app. Do NOT use for feeds of items (use content-sections).
 ---
 
 # Utility Sections
@@ -99,11 +99,11 @@ Neither is a private per-user list. That's the gap path — see `section-routing
 
 **`Live`** — `liveradio` for audio, `livevideo` for video. The distinction from `Sound`/`Video` is discrete episodes versus a continuous stream. A radio station usually wants both: `Live` for the stream, `Sound` for the archive.
 
-**`Shop`** — links out to a Shopify, Amazon or Etsy storefront. Native in-app selling is `GBModuleTypeCommerce` and a different product line entirely → `commerce-sections`. Worth naming the difference when the user says "a shop", because the two answers have very different costs: `Shop` is a link on any plan, `Commerce` needs a Shop plan.
+**`Shop`** — links out to a Shopify, Amazon or Etsy storefront. Worth naming the difference when the user says "a shop", because the two answers have very different costs: `Shop` is a link on any plan, `Commerce` needs a Shop plan.
 
 **`Home`** — a singleton landing page assembled from widgets (Content, Link, Social links, Separator, Custom Code, Legal links, Text). Its Content widget can only reference sections **that already exist**, so if a plan includes Home, say that it's assembled last. Home can also be disabled entirely, launching the app straight into another section.
 
-**`Plugin`** — covers installed extensions and Custom Code both. `rag` is the RAG Chatbot (paid — check `extensions-pricing`), `aistudio` is Create with AI (BETA — flag the maturity risk), and no service at all means a hand-written Custom Code section → `custom-code-spec`.
+**`Plugin`** — covers installed extensions and Custom Code both. `rag` is the RAG Chatbot, `aistudio` is Create with AI (BETA — flag the maturity risk), and no service at all means a hand-written Custom Code section.
 
 ## 6. Before emitting a utility section
 
