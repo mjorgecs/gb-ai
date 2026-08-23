@@ -167,18 +167,20 @@ Events are documented as shareable and bookmarkable through a toolbar on the det
 
 | Template                                      | What it looks like                                                                                                            | Pick it when                                                                                              |                                               |
 | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| `Enriched` (list)                             | **Default.** Name suggests a single-location view.                                                                            | One place — a venue, a shop, an office.                                                                   | ○ *(default is captured; the reading is not)* |
+| `Enriched` (list)                             | **Default.** Richer per-place cell — carries the place's address and a favourites button.                                     | The default, and a good fit for most place lists: an address in the list is what people want from a map.  | ✔                                             |
+| `Single` (list)                               | Name suggests a single-location view.                                                                                         | One place only — a venue, a shop, an office.                                                              | ○                                             |
 | `Multi` (list)                                | Name suggests several points on one map.                                                                                      | Several locations in one area.                                                                            | ○                                             |
 | `MultiDistant` (list)                         | Name suggests several points spread far apart, so the map opens zoomed out.                                                   | Nationwide or international locations.                                                                    | ○                                             |
 | `SplitView` (list)                            | **Split list-and-map, like Google Maps** — the user sees where they are and what they're looking for without switching modes. | "store locator", "find the nearest", browsing while seeing the map. The strongest documented Maps choice. | ✔                                             |
 | `Visual` (list)                               | Each place carries **several images in a slideshow** — built for high visual impact per place.                                | Tourism, restaurants, venues, "show photos of each place".                                                | ✔                                             |
-| `Enriched` (list)                             | Richer per-place cell — carries the place's address and a favourites button.                                                  | Address matters in the list; users save places.                                                           | ✔                                             |
 | `SplitEnriched` (list)                        | The split view with the enriched cell.                                                                                        | Both of the above.                                                                                        | ✔                                             |
 | `Classic` (list)                              | A plain list of places.                                                                                                       | Text-first directory.                                                                                     | ○                                             |
 | `Grid` (list)                                 | Name suggests a grid of places.                                                                                               | Image-led place browsing.                                                                                 | ○                                             |
 | `Banner` (content)                            | **Default** for the content slot.                                                                                             | Default.                                                                                                  | ✔ *(default captured)*                        |
 | `Classic` `HTML` `ClassicGrenadine` (content) | `HTML`'s name suggests a free-form HTML place page.                                                                           | Only on an explicit ask.                                                                                  | ○                                             |
 | `Classic` (detail)                            | The lone `GBMapsDetailTemplateTypeClassic`.                                                                                   | Emit only if the plan needs the third family; note it isn't understood.                                   | ○                                             |
+
+`Maps` has the most useful default of the six: `Enriched` puts each place's address in the list, which is what most people want from a map section, and it is documented rather than inferred. Leave it there unless the description says something specific — **one** location (`Single`), places spread across a country (`MultiDistant`), a locator people search (`SplitView`), or photos of each place (`Visual`).
 
 ## 5. Signals in the description → template
 
@@ -200,7 +202,7 @@ Read the **description**, not the section name. Match a phrase, or take the defa
 | "store locator", "find the nearest one" | `Maps` + `SplitView` | Documented split view. |
 | "photos of each place", tourism, restaurants | `Maps` + `Visual` | Documented per-place slideshow. |
 | "show the address in the list", saved places | `Maps` + `Enriched` / `SplitEnriched` | Documented. |
-| one venue, one office | `Maps` + `Single` | The default, and correct here. |
+| one venue, one office | `Maps` + `Single` | ○ The only case that beats the `Enriched` default — one place needs no list. |
 | several / distant places | `Maps` + `Multi` / `MultiDistant` | ○ The default is wrong here — deviate. |
 | "play episodes from the list" | `Sound` + `Enriched` | ○ |
 
@@ -218,7 +220,7 @@ Read the **description**, not the section name. Match a phrase, or take the defa
 | `Immersive` `Checkerboard` `GridVisualCard` `VisualCardGridVisualCard` `ImmersiveStorySlideCondensed` | **Article only**                                                                                                                                                        |
 | `Banner`                                                                                              | Sound *(content)* · Agenda *(content)* · Maps *(content — the default)*                                                                                                 |
 
-A signal pointing at a template the type doesn't have is not a licence to compose the name. The type keeps its default, and you say in prose which type does carry that layout.
+A signal pointing at a template the type doesn't have is not a licence to compose the name. The type keeps its default, and its `notes` says which type does carry that layout.
 
 ## 6. Constraints that override a preference
 
@@ -226,7 +228,7 @@ A signal pointing at a template the type doesn't have is not a licence to compos
 
 - `service: rss` on a publisher's public feed often yields headline-plus-summary with an unreliable image. `Immersive`, `Visuels`, `Grid` and the card templates all render a hole where the thumbnail should be. Default to `Classic` or `Condensed` and say why.
 - `service: custom` shows images only if the JSON exposes them. If the user hasn't confirmed an image field, do not plan a visual layout on top of it.
-- `service: mcms` means the owner uploads every image by hand. A visual template is a **content commitment** — a promise to attach a good image to every item, forever. Name that cost before recommending one.
+- `service: mcms` means the owner uploads every image by hand. A visual template is a **content commitment** — a promise to attach a good image to every item, forever. Say so before recommending one.
 - `youtube`, `vimeo`, `flickr` and podcast feeds carry artwork reliably. Visual templates are safe there.
 
 **The thumbnail fallback is not universal.** A default thumbnail can be configured for list pages, but the help notes that option is *not available on all templates*. So the fix for a patchy image supply is a text-first template, not a fallback image.
@@ -247,22 +249,26 @@ For each content section:
 
 - Both keys always present. `null` where a family wasn't captured — never omit the key.
 - `templateVerified: true` **only** when the chosen template is a documented one (✔ in §4) *and* the reason for choosing it is in the user's own words. Defaults chosen for lack of a signal are `true` — the default is captured fact. Anything ○ is `false`.
-- One prose sentence per non-default choice, quoting the phrase that drove it.
-- One prose sentence whenever a template is a **look-alike**, not an integration: the `Instagram`, `Flickr` and `SoundCloud` templates pull no data from those platforms.
+- One sentence **in the section's `notes`** per non-default choice, quoting the phrase that drove it. Not in prose — the report's prose budget is two lines before the JSON and three after, and template reasoning does not earn a line of it.
+- One sentence in `notes` whenever a template is a **look-alike**, not an integration: the `Instagram`, `Flickr` and `SoundCloud` templates pull no data from those platforms.
+- Defaults need no justification at all. Say nothing — an unexplained default is the expected case, and writing "left at the default" for every section is exactly the bloat this budget exists to prevent.
 
 ## 8. Validation checklist
 
 - [ ] Every template string is verbatim from §4 — family prefix plus a captured variant. Nothing invented, no `Detail`/`Content` swap.
 - [ ] Both slots emitted for every content section; `null` where the family wasn't captured, with a note saying so.
 - [ ] Non-content types carry `"template": null` and `templateVerified: false` — this skill has no vocabulary for them.
-- [ ] Every non-default template has a one-sentence justification quoting the description.
+- [ ] Every non-default template has a one-sentence justification **in `notes`**, quoting the description. Defaults carry none.
 - [ ] No visual template sits on a service with an unconfirmed image supply (§6).
-- [ ] Agenda used `Condensed`, and Maps used `Single`/`Banner` — not `Classic` — as their defaults.
-- [ ] Every ○ template carries `templateVerified: false` and is phrased as inference in prose.
-- [ ] `Instagram` / `Flickr` / `SoundCloud` templates carry the "layout only, no data" line.
+- [ ] Agenda used `Condensed`, and Maps used `Enriched`/`Banner` — not `Classic` — as their defaults.
+- [ ] Every ○ template carries `templateVerified: false` and is phrased as inference in its `notes`.
+- [ ] `Instagram` / `Flickr` / `SoundCloud` templates carry the "layout only, no data" line in `notes`.
 - [ ] Maps' unexplained third template family is noted, not silently dropped.
+- [ ] Nothing from the sources footer below appears in the report — no URLs, no access dates.
 
 ---
+
+*The references below are provenance for whoever maintains this skill. **They are not for the agent's output** — the report cites no sources and carries no URLs.*
 
 *Template codenames: `section-docs/0-section-type-codenames.md`, captured from a live back office 2026-08-12.*
 

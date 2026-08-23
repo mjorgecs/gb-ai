@@ -5,7 +5,7 @@ description: Plan the non-feed GoodBarber sections — static pages, contact det
 
 # Utility Sections
 
-Everything that isn't a content feed and isn't the shop. Mostly one screen, mostly little or no configuration — but three of them mislead users badly enough to need a scripted disclosure.
+Everything that isn't a content feed. Mostly one screen, mostly little or no configuration — but three of them mislead users badly enough to need a scripted disclosure.
 
 ## 1. Quick reference
 
@@ -77,7 +77,7 @@ Then offer the alternative, because there usually is one.
 
 Typeform, Tawk.to, Airtable Form and JotForm are `Custom` **with a preset URL** — nothing more. If the user already has a form, a chat widget, a booking page or a dashboard on the web, `Custom` embeds it in one step.
 
-**Ask "does this already exist on the web?" before writing any custom-code spec.** Routing to `Plugin` when `Custom` would do turns a URL field into a development project.
+**Ask "does this already exist on the web?" before reaching for `Plugin`.** Routing to `Plugin` when `Custom` would do turns a URL field into a development project.
 
 The reverse also matters. `Custom` is a web view: it renders an external page and does not get the app's native capabilities. If the feature needs on-device storage, the user's login state, geolocation, or native sharing, `Custom` can't do it and `Plugin` is right.
 
@@ -99,21 +99,24 @@ Neither is a private per-user list. That's the gap path — see `section-routing
 
 **`Live`** — `liveradio` for audio, `livevideo` for video. The distinction from `Sound`/`Video` is discrete episodes versus a continuous stream. A radio station usually wants both: `Live` for the stream, `Sound` for the archive.
 
-**`Shop`** — links out to a Shopify, Amazon or Etsy storefront. Worth naming the difference when the user says "a shop", because the two answers have very different costs: `Shop` is a link on any plan, `Commerce` needs a Shop plan.
+**`Shop`** — links out to a Shopify, Amazon or Etsy storefront. It is a **link**: no catalog, no cart, no checkout inside the app. Say that, because a user asking for "a shop" is usually picturing one in the app. This agent plans content apps only and has no eCommerce vocabulary — a request for real in-app selling is `"undetermined"`, not a gap, and planning it is outside what you cover.
 
 **`Home`** — a singleton landing page assembled from widgets (Content, Link, Social links, Separator, Custom Code, Legal links, Text). Its Content widget can only reference sections **that already exist**, so if a plan includes Home, say that it's assembled last. Home can also be disabled entirely, launching the app straight into another section.
 
 **`Plugin`** — covers installed extensions and Custom Code both. `rag` is the RAG Chatbot, `aistudio` is Create with AI (BETA — flag the maturity risk), and no service at all means a hand-written Custom Code section.
 
+Name `Plugin` when the user explicitly asks for one of those. **Never reach for it to close a gap, and never describe what the code would do** — no spec, no scope, no feature design. "The platform has no section for this" is a complete answer.
+
 ## 6. Before emitting a utility section
 
 - [ ] Not one of the auto-added four being proposed as new.
-- [ ] Any `Fakeclickto` section carries the link disclosure in prose.
+- [ ] Any `Fakeclickto` section carries the link disclosure in its `notes`.
 - [ ] `Custom` was considered before `Plugin` — does the thing already exist on the web?
+- [ ] No `Plugin` section was invented to close a gap, and no custom-code spec was written.
+- [ ] `Shop` described as a link out; nothing eCommerce planned.
 - [ ] `About` used for single pages rather than a content section.
 - [ ] `Form` vs `Submit` decided by what happens to the answer.
 - [ ] `Live` vs `Sound`/`Video` decided by stream versus episodes.
-- [ ] `Shop` vs `Commerce` named explicitly, with the plan difference.
 - [ ] If `Home` is in the plan, it's assembled after the sections it references.
 
 ---
