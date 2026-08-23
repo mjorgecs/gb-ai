@@ -18,6 +18,7 @@ section-agent/
     section-routing/   intent → type; owns the enum, output schema, validation
     content-sections/  Article · Photo · Video · Sound · Maps · Agenda
     utility-sections/  static pages, forms, links, social, live, QR, search
+    template-choices/  list + detail design templates for the six content types
   examples/            worked runs used as regression tests
 ```
 

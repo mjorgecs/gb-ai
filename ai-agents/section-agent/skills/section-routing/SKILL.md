@@ -126,9 +126,12 @@ The full ladder lives in the system prompt. Condensed, per intent:
 2. Type      → §4. no fit → 5 (NOT 6 — a missing type is not yet a gap)
 3. Service   → content-sections. platform not listed → look it up
 4. custom?   → if type is a content type and 3 found nothing, `custom` is available
-5. Gap       → only if 2, 3 AND 4 all came up empty.
+5. Look up   → search the store before conceding anything
+6. Gap       → only if 2, 3, 4 AND 5 all came up empty.
                alternatives[]
-6. Validate  → §8, then emit
+7. Template  → template-choices. matched content sections only;
+               default unless the description justifies otherwise
+8. Validate  → §8, then emit
 ```
 
 **Two steps get skipped, and both produce false gaps.**
@@ -136,6 +139,8 @@ The full ladder lives in the system prompt. Condensed, per intent:
 Step 4: `custom` exists on all six content types and turns most "connect it to my own API" requests into an ordinary matched section.
 
 Step 5: an unfamiliar capability is a **lookup, not a gap**. The store carries far more than the section catalog, and it grows. "There is no section for this" does not mean "the platform cannot do this."
+
+Step 7 is the one that gets *over*-thought rather than skipped. A template is presentation only and changes nothing about what a section can do, so the default is the right answer for most sections — see `template-choices` §2.
 
 ## 6. Distinctions that change the answer
 
@@ -192,8 +197,12 @@ Prose carries what JSON can't: the reasoning and the disclosures. The JSON block
       "service": "rss",
       "serviceVerified": true,
       "catalogEntry": "RSS feeds",
-      "template": ,
-      "notes": "Feed-backed — no 'Edit the content' action; the service owns the items."
+      "template": {
+        "list": "GBArticleListTemplateTypeClassic",
+        "detail": "GBArticleDetailTemplateTypeClassic"
+      },
+      "templateVerified": true,
+      "notes": "Feed-backed — no 'Edit the content' action; the service owns the items. Templates left at the defaults: the description says nothing about layout, and a public RSS feed's image supply is unreliable."
     },
     {
       "order": 2,
@@ -205,7 +214,8 @@ Prose carries what JSON can't: the reasoning and the disclosures. The JSON block
       "service": null,
       "serviceVerified": true,
       "catalogEntry": null,
-      "template": ,
+      "template": null,
+      "templateVerified": true,
       "alternatives": [
         {
           "type": "GBModuleTypeBookmark",
@@ -231,6 +241,8 @@ Prose carries what JSON can't: the reasoning and the disclosures. The JSON block
   - `"undetermined"` — the screen exists in the platform but its codename wasn't captured. `type: null`, no `alternatives` and a `notes` field saying what's missing and why you didn't guess. This status exists so that "I don't know the constant" never has to masquerade as either a match or a gap.
 - **`service`** is always present. Emit `null` explicitly for types that take none — never omit the key.
 - **`catalogEntry`** is always present, `null` if no tile corresponds.
+- **`template`** is an object with **both** a `list` and a `detail` key on matched content sections — the two design slots are chosen independently and a plan naming one is incomplete. `null` (the whole object) on gaps and on non-content types, whose template vocabulary was never captured. A single key may be `null` where its family wasn't captured — `Photo` has no captured detail family. See `template-choices`.
+- **`templateVerified: false`** means the template was chosen on a reading of its codename rather than a documented description. Defaults are `true`; most non-defaults are `false`.
 - **`typeVerified: false`** means *this type being right for this intent* was inferred, not observed. A codename existing in §2 is not the same as having seen it on a live section of the kind you're describing. The whole `Commerce*` family is `false`, including `Commercecollectionslist` — a strong name match is still a name match.
 - There is no `sectionLimit` field. Apps carry a per-app instance cap the back office reports at runtime; you don't assert it and never use it to limit a plan.
 
@@ -240,6 +252,8 @@ Run before emitting. Each failure is either a fix or a stated warning — never 
 
 - [ ] Every non-null `type` is a verbatim string from §2. Nothing invented. `null` only on `"gap"` or `"undetermined"`.
 - [ ] Every `service` key is present, `null` where the type takes none, and otherwise in the known list for **that specific type** or carrying `serviceVerified: false`. `mcms` is not universal — `Photo` has it, `Clickto` does not.
+- [ ] Every matched content section carries a `template` object with both `list` and `detail`, each a verbatim string from `template-choices` or an explicit `null`. Nothing invented.
+- [ ] Every non-default template has a one-sentence justification quoting the user's description, and `templateVerified: false` unless the template is one GoodBarber documents.
 - [ ] Every `status: "gap"` carries `alternatives`.
 - [ ] Every gap passed **all four** checks: no type, no `custom` service, no `GBModuleTypeCustom` web view, and an empty store search. Steps 4 and 5 are the ones that get skipped.
 - [ ] Every `status: "undetermined"` says in `notes` what wasn't captured and why nothing was guessed.

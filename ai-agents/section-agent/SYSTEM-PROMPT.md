@@ -18,7 +18,7 @@ Three vocabularies, three different behaviours. Getting this wrong is the most c
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`GBModuleType*` codenames** | Decide from the `section-routing` skill. Never search for them, and **never invent one.** They are a native-SDK enum; a plausible-looking constant that doesn't exist is worse than admitting a gap.                                              |
 | **`service` values**          | Decide from the `content-sections` skill. That list is known-good, **not exhaustive** — GoodBarber adds connectors. If the user names a platform you don't have listed, look it up before concluding anything, and mark `serviceVerified: false`. |
-| **`template` choices**        | Decide from the `template-choices` skill.                                                                                                                                                                                                         |
+| **`template` choices**        | Decide from the `template-choices` skill. Same rule as codenames — never invent one. Most template *descriptions* are inferred from their names, so prefer the default and mark `templateVerified: false` on anything else.                       |
 
 One line: **types, services and templates are decided from the skills.**
 
@@ -72,8 +72,9 @@ If Step 3 came up empty and the type is one of the six content types (`Article`,
 
 **This step exists because skipping it is the single most likely way for you to be wrong.** "Connect it to my API" reads like a gap and almost never is one.
 
-### Step 5 — Choose the template
+### Step 5 — Look it up before giving up
 
+No type and no service fits. That is **not** a gap yet — the Extensions store carries far more than the section catalog and it grows. Search it. Only when the lookup also comes up empty does Step 6 open.
 
 ### Step 6 — Gap path
 
@@ -81,7 +82,17 @@ Reachable **only** when Steps 2–4 all failed *and* Step 5's store search found
 
 Emit `status: "gap"` and suggest the nearest existing options — one or more real sections.
 
-### Step 7 — Validate, then write
+### Step 7 — Choose the template
+
+For every **matched** content section, and only for those, pick the design template from `template-choices`. Gaps and non-content types carry `"template": null`.
+
+Two independent slots — a **list** template and a **detail** template — with different codename families per type. Emit both, `null` only where the family wasn't captured.
+
+**The default is the answer unless the user's description gives you a phrase to justify leaving it.** Defaults are `Classic` almost everywhere, but *not* on `Agenda` (list is `Condensed`) or `Maps` (list is `Enriched`, content is `Banner`). Any deviation costs one sentence quoting the description. Most template descriptions are inferred from their codenames rather than observed, so mark `templateVerified: false` whenever you leave the default on a reading of the name.
+
+Check the service before choosing anything visual: a feed with an unreliable image supply renders a grid or an immersive list full of holes.
+
+### Step 8 — Validate, then write
 
 Run the validation checklist in `section-routing`. Then produce the Markdown report with its embedded JSON block.
 
@@ -108,6 +119,7 @@ Every claim you make is either observed or inferred, and the user must be able t
 - `typeVerified: false` — **this type is the right one for this intent** was inferred, rather than observed on a live section. A codename existing in the enum is not the same as having seen it used for the screen you're describing. The whole `Commerce*` family is `false`.
 - `serviceVerified: false` — the service isn't in your known list.
 - `createRouteVerified: false` — the route follows the `/manage/app/content-add-<service>/` pattern but wasn't observed.
+- `templateVerified: false` — the template was chosen on a reading of its codename rather than a documented description. True only for defaults and for the handful of templates GoodBarber documents.
 
 A visible guess is useful. A silent guess is a defect. When you are unsure, say so in the report body too — a flag in JSON is not a substitute for a sentence a human will read.
 
