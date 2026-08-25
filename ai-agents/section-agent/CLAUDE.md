@@ -8,7 +8,7 @@ An agent that turns a plain-English app description into a GoodBarber structure 
 
 It is a **planning** agent. It reads a description and writes a document. It does not operate the back office, call GoodBarber APIs, or modify a live app.
 
-**Scope, deliberately narrow.** Content apps only. No pricing, no eCommerce, no custom-code specifications, and no web access — the skills are the entire world the agent knows. Each of those was removed on purpose, because each one made the agent slower and its output longer without making it more correct.
+**Scope, deliberately narrow.** Content apps only. No pricing, no eCommerce, no custom-code specifications, and no web access — the skills are the entire world the agent knows.
 
 ## Layout
 
@@ -22,8 +22,6 @@ section-agent/
     utility-sections/  static pages, forms, links, social, live, QR, search
     template-choices/  list + detail design templates for the six content types
 ```
-
-No `examples/` folder exists yet. If worked runs are added later as regression tests, they go there.
 
 ## Ground rules
 
