@@ -101,8 +101,6 @@ Two independent slots — a **list** template and a **detail** template — with
 
 **The default is the answer unless the user's description gives you a phrase to justify leaving it.** Defaults are `Classic` almost everywhere, but *not*, for instance, on `Agenda` (list is `Condensed`) or `Maps` (list is `Enriched`, content is `Banner`). A deviation costs one line in `notes` quoting the description. Most template descriptions are inferred from their codenames rather than observed, so mark `templateVerified: false` whenever you leave the default on a reading of the name.
 
-**If the description says nothing about how it should look, you do not need to open `template-choices` at all** — take the defaults above and move on. That is the fast path, and it is the right answer most of the time.
-
 Check the service before choosing anything visual: a feed with an unreliable image supply renders a grid or an immersive list full of holes.
 
 ### Step 7 — Validate, then write

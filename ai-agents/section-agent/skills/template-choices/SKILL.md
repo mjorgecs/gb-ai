@@ -45,20 +45,20 @@ Each half has its own template family, its own codename prefix, and its own defa
 
 This is the rule this skill exists to enforce. The defaults are what GoodBarber ships, what its back office pre-selects, and what the platform's own design system is tuned around. An agent that picks an exotic template because it sounds impressive produces a plan that looks confident and is unjustifiable — and templates are the one axis a user can change later in two clicks, so an unnecessary deviation costs more than it buys.
 
-| Family                               | Default       |
-| ------------------------------------ | ------------- |
-| `GBArticleListTemplateTypeClassic`   | Classic       |
-| `GBArticleDetailTemplateTypeClassic` | Classic       |
-| `GBVideoListTemplateTypeClassic`     | Classic       |
-| `GBVideoDetailTemplateTypeClassic`   | Classic       |
-| `GBSoundListTemplateTypeClassic`     | Classic       |
-| `GBSoundContentTemplateTypeClassic`  | Classic       |
-| `GBPhotoListTemplateTypeClassic`     | Classic       |
-| `GBEventListTemplateTypeCondensed`   | **Condensed** |
-| `GBEventContentTemplateTypeClassic`  | Classic       |
-| `GBMapsListTemplateTypeEnriched`     | **Enriched**  |
-| `GBMapsContentTemplateTypeBanner`    | **Banner**    |
-| `GBMapsDetailTemplateTypeClassic`    | Classic       |
+| Family                                 | Default    |
+| -------------------------------------- | ---------- |
+| `GBArticleListTemplateTypeEnriched`    | Enriched   |
+| `GBArticleDetailTemplateTypeToolBarUp` | ToolBarUp  |
+| `GBVideoListTemplateTypeVisualCard`    | VisualCard |
+| `GBVideoDetailTemplateTypeClassic`     | Classic    |
+| `GBSoundListTemplateTypeEnriched`      | Enriched   |
+| `GBSoundContentTemplateTypeClassic`    | Classic    |
+| `GBPhotoListTemplateTypePinterest`     | Pinterest  |
+| `GBEventListTemplateTypeCondensed`     | Condensed  |
+| `GBEventContentTemplateTypeClassic`    | Classic    |
+| `GBMapsListTemplateTypeEnriched`       | Enriched   |
+| `GBMapsContentTemplateTypeBanner`      | Banner     |
+| `GBMapsDetailTemplateTypeClassic`      | Classic    |
 
 **A deviation costs one sentence.** Any non-default template must carry a prose justification quoting the phrase in the user's description that motivated it. No quotable phrase → no deviation.
 
@@ -77,33 +77,33 @@ The distinction matters more than the descriptions do. A wrong template is a two
 
 ### `GBModuleTypeArticle` — list
 
-| Template                       | What it looks like                                                                                                                                                                                | Pick it when                                                                                         |     |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | --- |
-| `Classic`                      | The default cell: thumbnail, title, summary line.                                                                                                                                                 | Nothing in the description argues otherwise.                                                         | ✔   |
-| `Immersive`                    | Thumbnail **full screen**, one article at a time, **bottom-to-top swipe** between them, TikTok-style. Comments, bookmark and share act directly from the list.                                    | "immersive", "like TikTok/Instagram", "swipe through", fresh news with a strong image on every item. | ✔   |
-| `Enriched`                     | Newest-generation cell. Title never truncated, author **plus avatar**, token info above the title, below the title and at the cell foot, actions in the list. Adapts to the app's margin setting. | Long headlines, named authors, "show the author", metadata-rich editorial.                           | ✔   |
-| `Condensed`                    | Sleek and dense — a clear, concise preview per item. Heavily customisable: colours, fonts, image formats, element positioning.                                                                    | Many items, skim-reading, "compact", "clean", "a lot of posts".                                      | ✔   |
-| `VisualCard`                   | Card cell with **shadow** support and an **edge-to-edge image** option.                                                                                                                           | "cards", "modern", a strong image on every item.                                                     | ✔   |
-| `Grid`                         | Name suggests a multi-column grid of thumbnails.                                                                                                                                                  | Image-led browsing where the picture identifies the item.                                            | ○   |
-| `ClassicUne`                   | *Une* is French for a newspaper front page — name suggests a classic list with the newest item promoted as a large headline cell.                                                                 | "front page", "featured story", "highlight the latest".                                              | ○   |
-| `UneGrid`                      | Name suggests the same featured item above a grid.                                                                                                                                                | Featured story plus image-led browsing.                                                              | ○   |
-| `Visuels`                      | *Visuels* = "visuals" — name suggests an image-dominant list.                                                                                                                                     | Photo-led feed with short titles.                                                                    | ○   |
-| `SlideShow`                    | Name suggests a horizontally swiped carousel.                                                                                                                                                     | A short, curated feed — carousels hide items past the first few.                                     | ○   |
-| `MinimalColor`                 | Name suggests a text-first cell using colour rather than imagery.                                                                                                                                 | Feeds with **no reliable thumbnail**.                                                                | ○   |
-| `MinimalPhotos`                | Name suggests a minimal cell that keeps a small photo.                                                                                                                                            | Text-first with an optional small image.                                                             | ○   |
-| `Checkerboard`                 | Name suggests alternating image/text sides down the list.                                                                                                                                         | "alternating", "magazine-style".                                                                     | ○   |
-| `VisualCardCondensed`          | Name suggests the card cell in a denser variant.                                                                                                                                                  | Cards, but many items.                                                                               | ○   |
-| `GridVisualCard`               | Name suggests cards arranged in a grid.                                                                                                                                                           | Cards, image-led, multi-column.                                                                      | ○   |
-| `VisualCardGridVisualCard`     | Name suggests a card feature cell above a card grid.                                                                                                                                              | No description justifies this over `VisualCard`. Treat as an expert option.                          | ○   |
-| `ImmersiveStorySlideCondensed` | Name suggests a stories-style slide strip over a condensed list.                                                                                                                                  | "stories at the top", social-style. Compound name — confirm before promising.                        | ○   |
+| Template                       | What it looks like                                                                                                                                                                          | Pick it when                                                                                         |     |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | --- |
+| `Enriched`                     | The default cell. Title never truncated, author **plus avatar**, token info above the title, below the title and at the cell foot, actions in the list. Adapts to the app's margin setting. | Long headlines, named authors, "show the author", metadata-rich editorial.                           | ✔   |
+| `Classic`                      | Thumbnail, title, summary line.                                                                                                                                                             | Nothing in the description argues otherwise.                                                         | ✔   |
+| `Immersive`                    | Thumbnail **full screen**, one article at a time, **bottom-to-top swipe** between them, TikTok-style. Comments, bookmark and share act directly from the list.                              | "immersive", "like TikTok/Instagram", "swipe through", fresh news with a strong image on every item. | ✔   |
+| `Condensed`                    | Sleek and dense — a clear, concise preview per item. Heavily customisable: colours, fonts, image formats, element positioning.                                                              | Many items, skim-reading, "compact", "clean", "a lot of posts".                                      | ✔   |
+| `VisualCard`                   | Card cell with **shadow** support and an **edge-to-edge image** option.                                                                                                                     | "cards", "modern", a strong image on every item.                                                     | ✔   |
+| `Grid`                         | Name suggests a multi-column grid of thumbnails.                                                                                                                                            | Image-led browsing where the picture identifies the item.                                            | ○   |
+| `ClassicUne`                   | *Une* is French for a newspaper front page — name suggests a classic list with the newest item promoted as a large headline cell.                                                           | "front page", "featured story", "highlight the latest".                                              | ○   |
+| `UneGrid`                      | Name suggests the same featured item above a grid.                                                                                                                                          | Featured story plus image-led browsing.                                                              | ○   |
+| `Visuels`                      | *Visuels* = "visuals" — name suggests an image-dominant list.                                                                                                                               | Photo-led feed with short titles.                                                                    | ○   |
+| `SlideShow`                    | Name suggests a horizontally swiped carousel.                                                                                                                                               | A short, curated feed — carousels hide items past the first few.                                     | ○   |
+| `MinimalColor`                 | Name suggests a text-first cell using colour rather than imagery.                                                                                                                           | Feeds with **no reliable thumbnail**.                                                                | ○   |
+| `MinimalPhotos`                | Name suggests a minimal cell that keeps a small photo.                                                                                                                                      | Text-first with an optional small image.                                                             | ○   |
+| `Checkerboard`                 | Name suggests alternating image/text sides down the list.                                                                                                                                   | "alternating", "magazine-style".                                                                     | ○   |
+| `VisualCardCondensed`          | Name suggests the card cell in a denser variant.                                                                                                                                            | Cards, but many items.                                                                               | ○   |
+| `GridVisualCard`               | Name suggests cards arranged in a grid.                                                                                                                                                     | Cards, image-led, multi-column.                                                                      | ○   |
+| `VisualCardGridVisualCard`     | Name suggests a card feature cell above a card grid.                                                                                                                                        | No description justifies this over `VisualCard`. Treat as an expert option.                          | ○   |
+| `ImmersiveStorySlideCondensed` | Name suggests a stories-style slide strip over a condensed list.                                                                                                                            | "stories at the top", social-style. Compound name — confirm before promising.                        | ○   |
 
 ### `GBModuleTypeArticle` — detail
 
-| Template                                                                     | What it looks like                                                                                                     | Pick it when                                                                                       |     |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --- |
-| `Classic`                                                                    | The default article page.                                                                                              | Always, unless the user describes the reading toolbar.                                             | ✔   |
-| `ToolBarUp` `ToolBarSlide` `ToolBarAndroid` `ToolBarSwipe` `ToolBarInsideUp` | All five vary **where the action toolbar sits and how it behaves** — the toolbar carrying share, bookmark and comment. | Only when the user describes the toolbar's position or behaviour. Nothing else distinguishes them. | ○   |
-| `ToolBarSlideGrenadine`                                                      | A `Grenadine` variant — GoodBarber's design-system naming, believed theme-tied rather than structural.                 | Do not select on a theme guess. Flag as available.                                                 | ○   |
+| Template                                                         | What it looks like                                                                                                     | Pick it when                                                                                       |     |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --- |
+| `ToolBarUp`                                                      | The default article page.                                                                                              | Always, unless the user describes the reading toolbar.                                             | ✔   |
+| `ToolBarSlide` `ToolBarAndroid` `ToolBarSwipe` `ToolBarInsideUp` | All four vary **where the action toolbar sits and how it behaves** — the toolbar carrying share, bookmark and comment. | Only when the user describes the toolbar's position or behaviour. Nothing else distinguishes them. | ○   |
+| `ToolBarSlideGrenadine`                                          | A `Grenadine` variant — GoodBarber's design-system naming, believed theme-tied rather than structural.                 | Do not select on a theme guess. Flag as available.                                                 | ○   |
 
 **One documented constraint:** the HTML/token editor is **not available on the fourth detail template**. If the plan depends on editing the detail page's token markup — removing the date or author line — say that some detail templates lock it, and keep `Classic`.
 
@@ -111,74 +111,72 @@ The distinction matters more than the descriptions do. A wrong template is a two
 
 The list family is a **strict subset of Article's** — eleven of Article's seventeen, same names, same readings. The detail family is **identical** to Article's seven.
 
-| Template | Note | |
-|---|---|---|
-| `Classic` | Default, both slots. | ✔ |
-| `Grid` `UneGrid` `Visuels` `SlideShow` | Thumbnail-led. Video items almost always carry a thumbnail, so these are safer here than on `Article`. | ○ |
-| `Enriched` `VisualCard` `VisualCardCondensed` | Read as on `Article`. | ✔ on Article's documentation, ○ for the behaviour on Video |
-| `ClassicUne` `MinimalColor` `MinimalPhotos` | Read as on `Article`. | ○ |
+| Template                                    | Note                                                                                                   |                                                            |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| `VisualCard` (list)                         | Default, both slots.                                                                                   | ✔                                                          |
+| `Enriched` `VisualCardCondensed`            | Read as on `Article`.                                                                                  | ✔ on Article's documentation, ○ for the behaviour on Video |
+| `Grid` `UneGrid` `Visuels` `SlideShow`      | Thumbnail-led. Video items almost always carry a thumbnail, so these are safer here than on `Article`. | ○                                                          |
+| `ClassicUne` `MinimalColor` `MinimalPhotos` | Read as on `Article`.                                                                                  | ○                                                          |
 
 **Six Article list templates are NOT available on Video:** `Immersive`, `Condensed`, `Checkerboard`, `GridVisualCard`, `VisualCardGridVisualCard`, `ImmersiveStorySlideCondensed`. A "TikTok-style video feed" therefore cannot be answered with `GBVideoListTemplateTypeImmersive` — that string does not exist. Say the immersive list layout is captured on `Article` only, and leave Video at its default rather than inventing the parallel.
 
 ### `GBModuleTypeSound`
 
-| Template | What it looks like | Pick it when | |
-|---|---|---|---|
-| `Classic` (list) | The default episode list. | Default. | ✔ |
-| `Enriched` (list) | Richer cell; play/pause controls sit in the list itself. | Episode metadata matters, or "play from the list". | ○ |
-| `SoundCloud` (list) | Name suggests a SoundCloud-styled list — waveform-ish presentation. | Only if the user names SoundCloud. Note it is a **look**, not the `soundcloud` service. | ○ |
-| `GrenadinePodcast` (list) | A `Grenadine` design-system variant for podcasts. | Flag as available; don't select on a guess. | ○ |
-| `Classic` (content) | Default episode page. | Default. | ✔ |
-| `Banner` (content) | Name suggests cover art as a banner above the player. | Strong per-episode or show artwork. | ○ |
-| `ClassicGrenadine` (content) | Theme-tied variant. | Flag only. | ○ |
+| Template                     | What it looks like                                                  | Pick it when                                                                            |     |
+| ---------------------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --- |
+| `Enriched` (list)            | The default episode list.                                           | Default.                                                                                | ✔   |
+| `SoundCloud` (list)          | Name suggests a SoundCloud-styled list — waveform-ish presentation. | Only if the user names SoundCloud. Note it is a **look**, not the `soundcloud` service. | ○   |
+| `GrenadinePodcast` (list)    | A `Grenadine` design-system variant for podcasts.                   | Flag as available; don't select on a guess.                                             | ○   |
+| `Classic` (content)          | Default episode page.                                               | Default.                                                                                | ✔   |
+| `Banner` (content)           | Name suggests cover art as a banner above the player.               | Strong per-episode or show artwork.                                                     | ○   |
+| `ClassicGrenadine` (content) | Theme-tied variant.                                                 | Flag only.                                                                              | ○   |
 
 **Do not confuse template with service.** `SoundCloud` here is a layout; `soundcloud` in `content-sections` is a data source. They are unrelated and a plan may legitimately use one without the other.
 
 ### `GBModuleTypePhoto`
 
-| Template | What it looks like | Pick it when | |
-|---|---|---|---|
-| `Classic` | Default gallery. | Default. | ✔ |
-| `VisualCard` | Card gallery — shadow controls, edge-to-edge option, and **8 image ratios**. | "cards", mixed aspect ratios, "modern gallery". | ✔ |
-| `Instagram` | Name suggests a uniform square grid. | "like Instagram", square photos. **Layout only** — no Instagram data. Say so. | ○ |
-| `Pinterest` | Name suggests a masonry grid preserving each image's height. | "Pinterest-style", portrait and landscape mixed. | ○ |
-| `Square` | Name suggests square crops. | Uniform crops acceptable. | ○ |
-| `Fullsize` | Name suggests one large image per row. | Few, large, high-quality photos. | ○ |
-| `Edgetoedge` | Name suggests images bleeding to the screen edges, no margin. | "full bleed", "no borders". | ○ |
-| `Flickr` | Name suggests a Flickr-styled layout. | Only if the user names Flickr. Again: a look, not the `flickr` service. | ○ |
-| `List` | Name suggests one photo per row with its caption. | Captions matter more than the images. | ○ |
-| `Visuels` | Name suggests an image-dominant layout. | Generic visual gallery. | ○ |
+| Template     | What it looks like                                                            | Pick it when                                                                  |     |
+| ------------ | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | --- |
+| `Pinterest`  | Default gallery. Name suggests a masonry grid preserving each image's height. | Default. "Pinterest-style", portrait and landscape mixed.                     | ✔   |
+| `VisualCard` | Card gallery — shadow controls, edge-to-edge option, and **8 image ratios**.  | "cards", mixed aspect ratios, "modern gallery".                               | ✔   |
+| `Instagram`  | Name suggests a uniform square grid.                                          | "like Instagram", square photos. **Layout only** — no Instagram data. Say so. | ○   |
+| `Square`     | Name suggests square crops.                                                   | Uniform crops acceptable.                                                     | ○   |
+| `Fullsize`   | Name suggests one large image per row.                                        | Few, large, high-quality photos.                                              | ○   |
+| `Edgetoedge` | Name suggests images bleeding to the screen edges, no margin.                 | "full bleed", "no borders".                                                   | ○   |
+| `Flickr`     | Name suggests a Flickr-styled layout.                                         | Only if the user names Flickr. Again: a look, not the `flickr` service.       | ○   |
+| `List`       | Name suggests one photo per row with its caption.                             | Captions matter more than the images.                                         | ○   |
+| `Visuels`    | Name suggests an image-dominant layout.                                       | Generic visual gallery.                                                       | ○   |
 
 Detail slot: **not captured.** `"detail": null`, `templateVerified: false`, plus a note.
 
 ### `GBModuleTypeAgenda`
 
-| Template | What it looks like | Pick it when | |
-|---|---|---|---|
-| `Condensed` (list) | The **only captured Event list template**, and the default. | Always. There is nothing to choose between. | ✔ |
-| `Classic` (content) | Default event page. | Default. | ✔ |
-| `Banner` (content) | Name suggests the event image as a banner header. | Events with artwork — concerts, festivals. | ○ |
-| `BannerCustom` (content) | Name suggests a banner with custom configuration. | Only on an explicit customisation ask. | ○ |
-| `Cover` (content) | Name suggests a full-width cover image header. | Image-led events. | ○ |
+| Template                 | What it looks like                                          | Pick it when                                 |     |
+| ------------------------ | ----------------------------------------------------------- | -------------------------------------------- | --- |
+| `Condensed` (list)       | The **only captured Event list template**, and the default. | Default. There is nothing to choose between. | ✔   |
+| `Classic` (content)      | Default event page.                                         | Default.                                     | ✔   |
+| `Banner` (content)       | Name suggests the event image as a banner header.           | Events with artwork — concerts, festivals.   | ○   |
+| `BannerCustom` (content) | Name suggests a banner with custom configuration.           | Only on an explicit customisation ask.       | ○   |
+| `Cover` (content)        | Name suggests a full-width cover image header.              | Image-led events.                            | ○   |
 
 Events are documented as shareable and bookmarkable through a toolbar on the detail page, and the list is classified by date regardless of template.
 
 ### `GBModuleTypeMaps`
 
-| Template                                      | What it looks like                                                                                                            | Pick it when                                                                                              |                                               |
-| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| `Enriched` (list)                             | **Default.** Richer per-place cell — carries the place's address and a favourites button.                                     | The default, and a good fit for most place lists: an address in the list is what people want from a map.  | ✔                                             |
-| `Single` (list)                               | Name suggests a single-location view.                                                                                         | One place only — a venue, a shop, an office.                                                              | ○                                             |
-| `Multi` (list)                                | Name suggests several points on one map.                                                                                      | Several locations in one area.                                                                            | ○                                             |
-| `MultiDistant` (list)                         | Name suggests several points spread far apart, so the map opens zoomed out.                                                   | Nationwide or international locations.                                                                    | ○                                             |
-| `SplitView` (list)                            | **Split list-and-map, like Google Maps** — the user sees where they are and what they're looking for without switching modes. | "store locator", "find the nearest", browsing while seeing the map. The strongest documented Maps choice. | ✔                                             |
-| `Visual` (list)                               | Each place carries **several images in a slideshow** — built for high visual impact per place.                                | Tourism, restaurants, venues, "show photos of each place".                                                | ✔                                             |
-| `SplitEnriched` (list)                        | The split view with the enriched cell.                                                                                        | Both of the above.                                                                                        | ✔                                             |
-| `Classic` (list)                              | A plain list of places.                                                                                                       | Text-first directory.                                                                                     | ○                                             |
-| `Grid` (list)                                 | Name suggests a grid of places.                                                                                               | Image-led place browsing.                                                                                 | ○                                             |
-| `Banner` (content)                            | **Default** for the content slot.                                                                                             | Default.                                                                                                  | ✔ *(default captured)*                        |
-| `Classic` `HTML` `ClassicGrenadine` (content) | `HTML`'s name suggests a free-form HTML place page.                                                                           | Only on an explicit ask.                                                                                  | ○                                             |
-| `Classic` (detail)                            | The lone `GBMapsDetailTemplateTypeClassic`.                                                                                   | Emit only if the plan needs the third family; note it isn't understood.                                   | ○                                             |
+| Template                                      | What it looks like                                                                                                            | Pick it when                                                                                              |     |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --- |
+| `Enriched` (list)                             | **Default.** Richer per-place cell — carries the place's address and a favourites button.                                     | The default, and a good fit for most place lists: an address in the list is what people want from a map.  | ✔   |
+| `Single` (list)                               | Name suggests a single-location view.                                                                                         | One place only — a venue, a shop, an office.                                                              | ○   |
+| `Multi` (list)                                | Name suggests several points on one map.                                                                                      | Several locations in one area.                                                                            | ○   |
+| `MultiDistant` (list)                         | Name suggests several points spread far apart, so the map opens zoomed out.                                                   | Nationwide or international locations.                                                                    | ○   |
+| `SplitView` (list)                            | **Split list-and-map, like Google Maps** — the user sees where they are and what they're looking for without switching modes. | "store locator", "find the nearest", browsing while seeing the map. The strongest documented Maps choice. | ✔   |
+| `Visual` (list)                               | Each place carries **several images in a slideshow** — built for high visual impact per place.                                | Tourism, restaurants, venues, "show photos of each place".                                                | ✔   |
+| `SplitEnriched` (list)                        | The split view with the enriched cell.                                                                                        | Both of the above.                                                                                        | ✔   |
+| `Classic` (list)                              | A plain list of places.                                                                                                       | Text-first directory.                                                                                     | ○   |
+| `Grid` (list)                                 | Name suggests a grid of places.                                                                                               | Image-led place browsing.                                                                                 | ○   |
+| `Banner` (content)                            | **Default** for the content slot.                                                                                             | Default.                                                                                                  | ✔   |
+| `Classic` `HTML` `ClassicGrenadine` (content) | `HTML`'s name suggests a free-form HTML place page.                                                                           | Only on an explicit ask.                                                                                  | ○   |
+| `Classic` (detail)                            | The lone `GBMapsDetailTemplateTypeClassic`.                                                                                   | Emit only if the plan needs the third family; note it isn't understood.                                   | ○   |
 
 `Maps` has the most useful default of the six: `Enriched` puts each place's address in the list, which is what most people want from a map section, and it is documented rather than inferred. Leave it there unless the description says something specific — **one** location (`Single`), places spread across a country (`MultiDistant`), a locator people search (`SplitView`), or photos of each place (`Visual`).
 
@@ -207,18 +205,6 @@ Read the **description**, not the section name. Match a phrase, or take the defa
 | "play episodes from the list" | `Sound` + `Enriched` | ○ |
 
 **Check availability before applying a row.** The families do not share a vocabulary, and a name that exists on one type is not a name you may compose on another.
-
-| Shared name                                                                                           | Types that have it                                                                                                                                                      |
-| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Classic`                                                                                             | Article · Video · Sound · Photo · Maps *(all three families — but **not** the list default, which is `Enriched`)* · Agenda *(content only — the list has no `Classic`)* |
-| `Enriched`                                                                                            | Article · Video · Sound · Maps                                                                                                                                          |
-| `VisualCard`                                                                                          | Article · Video · Photo                                                                                                                                                 |
-| `Visuels`                                                                                             | Article · Video · Photo                                                                                                                                                 |
-| `Grid`                                                                                                | Article · Video · Maps                                                                                                                                                  |
-| `ClassicUne` `SlideShow` `MinimalColor` `MinimalPhotos` `UneGrid` `VisualCardCondensed`               | Article · Video                                                                                                                                                         |
-| `Condensed`                                                                                           | Article · Agenda *(list — where it is the default)*                                                                                                                     |
-| `Immersive` `Checkerboard` `GridVisualCard` `VisualCardGridVisualCard` `ImmersiveStorySlideCondensed` | **Article only**                                                                                                                                                        |
-| `Banner`                                                                                              | Sound *(content)* · Agenda *(content)* · Maps *(content — the default)*                                                                                                 |
 
 A signal pointing at a template the type doesn't have is not a licence to compose the name. The type keeps its default, and its `notes` says which type does carry that layout.
 
