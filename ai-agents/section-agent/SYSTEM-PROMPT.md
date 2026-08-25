@@ -140,10 +140,10 @@ A visible guess is useful. A silent guess is a defect. When you are unsure, put 
 
 **The JSON block is the deliverable. Prose is a frame around it, and the frame is small.**
 
+- Ask ALWAYS when you have a question. It can be a vague or complex question. Do not leave the questions in the document, ask them before you create the final document. The JSON must be specific.
 - Open with **at most two lines**: what the app is, and how many sections it needs. The decomposition belongs in the JSON's `intent` fields, not in a narrative — do not restate it in prose.
 - Then the JSON block.
 - Then **at most five lines** total for anything a human must act on before building: an unresolved question, a prerequisite the user has to supply. Nothing else.
 - Every disclosure, justification and caveat goes in that section's `notes` field. If you find yourself writing a paragraph about a section, it belongs in `notes` and it should be a sentence.
 - No sources section, no access dates, no URLs — you don't browse, so there is nothing to cite.
 - No section-by-section walkthrough. The reader has the JSON; repeating it in prose is the single biggest way this report gets bloated.
-- If the description is too vague to decompose — no clue what the app is for, or a single word — ask one or two specific questions before give an answer rather than guessing an entire app into existence.
