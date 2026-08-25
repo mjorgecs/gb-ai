@@ -47,7 +47,6 @@ Understand how AI agents are designed and where they succeed or fail: the differ
 Use the platform as an end user: create a real application, add and configure sections, and observe the constraints the back office imposes.
 
 - **Deliverable:** a working demonstration app, plus notes on the building flow, the configuration options exposed per section, and the points where a new user is most likely to hesitate.
-- **Success criterion:** the building process can be described step by step, including which decisions the platform forces the user to make and in what order.
 
 ### 1.4 The platform's codebase and data model
 
@@ -66,15 +65,12 @@ This stage turns the research material into the argument of the report. It runs 
 
 State the motivation: what is costly or slow in the current manual-assembly flow, who is affected, and why an AI-assisted flow is a plausible answer rather than a fashionable one.
 
-- **Deliverable:** the *Introduction* and *Problem* chapters.
-- **Success criterion:** the problem is stated independently of the proposed solution — a reader who disagrees with the solution should still recognise the problem.
-
 ### 2.2 Possible solutions
 
-Describe the candidate approaches, compare them against the market solutions surveyed in 1.1, and justify the choice for GoodBarber specifically.
+Describe the candidate approaches and justify the choice for GoodBarber specifically.
 
 - **Deliverable:** the *Solutions* chapter, including the reasoning that rules the alternatives out.
-- **Success criterion:** the justification refers to properties of GoodBarber's platform (closed component library, native SDK, existing back office), not to generic arguments that would apply to any platform.zc
+- **Success criterion:** the justification refers to properties of GoodBarber's platform (closed component library, native SDK, existing back office).
 
 ### 2.3 Challenges and trade-offs
 
@@ -144,6 +140,35 @@ Stating what the project does **not** attempt keeps the objectives honest and th
 - **eCommerce applications.** The prototype targets content apps only.
 - **Pricing and plan tiers.** The agent has no pricing data and must not supply one.
 - **Modifying live applications.** The agent produces a plan; applying it remains a manual, human-reviewed step.
+
+## Progress
+
+Each objective below is assessed against what the project **actually contains today**, not against what is planned. An objective is marked complete only when its deliverable exists in the repository and its success criterion is met.
+
+Legend: ✅ done · 🟡 partial · ❌ not started
+
+| #   | Objective                                | Status | Evidence / what is still missing                                                                                                                                                                                                                                                                                                                                                             |
+| --- | ---------------------------------------- | :----: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.1 | State of the art                         |   🟡   | The three integration scenarios are defined and argued in `0-intro.md`, but **no platform is actually surveyed**: no competitor is named, classified or cited. The chapter describes the categories without populating them.                                                                                                                                                                 |
+| 1.2 | Agentic AI                               |   ✅    | `2-context.md` covers tokens, context window, Prompt vs Context Engineering with trade-offs; `1-structure.md` compares one-agent, subagent and multi-agent configurations. Both are sourced.                                                                                                                                                                                                 |
+| 1.3 | How the platform works                   |   ✅    | ~~The reference app (ReBook) exists and was used to inspect the live back office. What is missing is the **write-up**: no document describes the building flow step by step or the configuration options exposed per section~~.                                                                                                                                                              |
+| 1.4 | Codebase and data model                  |   ✅    | `section-docs/0-section-type-codenames.md` extracts the 30-value `GBModuleType*` enum from the live back-office DOM, separates the ~84-tile catalogue from the real type set, and states explicitly that nothing was inferred. Service and template tables live in the agent's skills with verification flags.                                                                               |
+| 2.1 | Problem definition                       |   ✅    | ~~`0-intro.md` names the cost of manual assembly, but as background to the solution rather than as a standalone argument. There is **no dedicated *Problem* chapter**, and the problem is not stated independently of the proposed answer~~.                                                                                                                                                 |
+| 2.2 | Possible solutions                       |   ✅    | ~~The three scenarios are compared with advantages and disadvantages, and `1-structure.md` justifies the two-agent split using GoodBarber-specific properties (JSON app structure, existing ecosystem) — the success criterion is met. The **comparison against real market solutions is absent**, because it depends on 1.1~~.                                                              |
+| 2.3 | Challenges and trade-offs                |   ✅    | ~~The material is present but **scattered**: token cost and context rot in `2-context.md`, maintainability of AI-generated code in `0-intro.md`, decision fatigue and iteration limits in `3-input.md`. There is no consolidated *Challenges* chapter, and challenges are not paired with the mitigation actually adopted in the prototype~~.                                                |
+| 2.4 | Technical documentation of the prototype |   🟡   | The agent's own docs are current and precise (`CLAUDE.md`, `SYSTEM-PROMPT.md`, four skills). However `section-docs/2-structure-section-agent-plan.md` still describes **six** skills, a `price` field and developer-ready custom-code specifications — all three of which the built agent now forbids. Documentation and prototype disagree, which is exactly what this objective rules out. |
+| 3.1 | Build the agent                          |   ✅    | `ai-agents/section-agent/` contains the system prompt with the decision ladder, four scoped skills, closed vocabularies, verification flags, and two worked example outputs. The agent runs and produces the intended JSON.                                                                                                                                                                  |
+| 3.2 | Refine the agent                         |   🟡   | **In progress — current stage.** Skill boundaries, output bloat and intent decomposition are still being tightened; catalogue coverage is still being extended from 1.4.                                                                                                                                                                                                                     |
+| 3.3 | Evaluate the agent                       |   ❌    | Only two demonstration outputs and two tested prompts exist. There is **no evaluation set with expected results**, no measurement of hallucinated identifiers, no gap-detection test, and no repeatability check. Nothing here is currently measured.                                                                                                                                        |
+| 3.4 | Assess the integration path              |   ❌    | Not started. No analysis of where the JSON plan would be consumed, what server-side validation it would need, or what the next engineering step is.                                                                                                                                                                                                                                          |
+
+**Summary:** 3 of 12 objectives complete, 7 partial, 2 not started. The pattern is consistent — the *analytical* work is strong and the *closing* work is missing: several chapters argue a position well but stop short of the survey, consolidation or measurement that would let a reader verify it.
+
+**Highest-value next steps**, in order of how much they change the report's credibility:
+
+1. **3.3 — Evaluate the agent.** The whole Implementation stage currently rests on two hand-picked examples. An evaluation set is what turns "it works" into a defensible claim, and it is the cheapest of the missing items.
+2. **1.1 — Survey the market.** Naming and classifying four or five real platforms closes 1.1 and 2.2 at once, since 2.2's missing half is the comparison against them.
+3. **2.4 — Retire the stale plan.** Mark `section-docs/2-structure-section-agent-plan.md` as superseded, or update it to the four-skill, no-pricing, no-custom-code agent that was actually built.
 
 ## Conclusion
 
