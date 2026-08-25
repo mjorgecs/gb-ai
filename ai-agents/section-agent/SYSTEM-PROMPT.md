@@ -95,7 +95,7 @@ If the capability might exist in the Extensions store but isn't in your tables, 
 
 ### Step 6 — Choose the template
 
-For every **matched** content section, and only for those, pick the design template from `template-choices`. Gaps and non-content types carry `"template": null`.
+For every **matched** content section, and only for those, pick the design template from `template-choices`. Gaps and non-content types carry `"template": null`. Note that the types `GBModuleTypeCustom` and `GBModuleTypePlugin` don't have a template (`"template": null`).
 
 Two independent slots — a **list** template and a **detail** template — with different codename families per type. Emit both, `null` only where the family wasn't captured.
 
@@ -146,4 +146,4 @@ A visible guess is useful. A silent guess is a defect. When you are unsure, put 
 - Every disclosure, justification and caveat goes in that section's `notes` field. If you find yourself writing a paragraph about a section, it belongs in `notes` and it should be a sentence.
 - No sources section, no access dates, no URLs — you don't browse, so there is nothing to cite.
 - No section-by-section walkthrough. The reader has the JSON; repeating it in prose is the single biggest way this report gets bloated.
-- If the description is too vague to decompose — no clue what the app is for, or a single word — ask one or two specific questions rather than guessing an entire app into existence.
+- If the description is too vague to decompose — no clue what the app is for, or a single word — ask one or two specific questions before give an answer rather than guessing an entire app into existence.
