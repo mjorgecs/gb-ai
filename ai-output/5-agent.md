@@ -146,14 +146,17 @@ The agent can only match a requirement against something it can describe. Extens
 
 The extension catalogue (the same happens to the template catalogue) is not covered at all. An app whose central requirement is served by an extension will receive an `undetermined`, which is honest but not useful.
 
-### Keeping the structure accessible to the user
+### Doubts
 
-The system prompt requires the agent to **ask before it emits**: open questions are resolved in conversation with the user and never left in the finished document, because the value of a plan depends directly on the specificity of the description behind it, and most users describe their apps briefly and vaguely.
+Most users describe an app in a sentence or two, and a short description is ambiguous in ways the agent cannot resolve by reasoning harder [^7]. An assumption made silently during decomposition propagates through every decision beneath it and reaches the user disguised as a finished plan [^7].
+
+To address this problem, the system prompt requires the agent to **ask before it emits**: open questions are resolved in conversation with the user and never left in the finished document, because the value of a plan depends directly on the specificity of the description behind it.
+
 ### Maintaining the context window
 
 This is the structural challenge of the assembler model. The agent's competence is a snapshot: the enum was captured on a specific date, the service tables the same. GoodBarber ships features, extensions and templates continuously, and a table that silently falls behind produces an agent that confidently declares gaps where the platform has since grown a capability.
 
-(the solution is to have a scheduled skill that updates the tables with the information from the documentation of the GoodBarber's platform)
+The tables have to be refreshed by something other than the person maintaining them, which means a **scheduled skill** whose only job is to reconcile them against the platform's own documentation. That requires something GoodBarber does not currently expose: a single endpoint publishing the live type, service and template vocabularies — each entry with its description and its intended usage — alongside a last-modified date. The skill would run on a fixed cadence, compare that date against the _known good as of_ stamp each table already carries, fetch only what changed, and rewrite the affected rows.
 
 ## Sources
 
@@ -166,3 +169,5 @@ This is the structural challenge of the assembler model. The agent's competence 
 [^4]: Rajasekaran, P., Dixon, E., Ryan, C., & Hadfield, J. (2025). _Effective context engineering for AI agents._ Anthropic Engineering. [https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 
 [^6]: GoodBarber. (2026). _Design individual sections._ GoodBarber Help Center. [https://www.goodbarber.com/help/design-of-your-sections-r89/section-design-a106/](https://www.goodbarber.com/help/design-of-your-sections-r89/section-design-a106/) — the global App Style, per-section overrides, and the separate "Edit the design" entry points for a list and its detail page.
+
+[^7]: Zi, Y., Menon, H., & Guha, A. (2025). _More Than a Score: Probing the Impact of Prompt Specificity on LLM Code Generation._ arXiv. [https://arxiv.org/abs/2508.03678](https://arxiv.org/abs/2508.03678) [↩](#user-content-fnref-8)
