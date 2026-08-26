@@ -80,7 +80,7 @@ Alongside the status, four boolean flags (`typeVerified`, `serviceVerified`, `te
 
 #### How a skill is structured
 
-A skill is a directory containing a `SKILL.md` file that opens with YAML frontmatter carrying two required fields — `name` and `description` [^3]. That small header is the whole routing mechanism, and it works through **progressive disclosure**, which loads context in three stages [^4]:
+A skill is a directory containing a `SKILL.md` file that opens with YAML frontmatter carrying two required fields — `name` and `description` [^2]. That small header is the whole routing mechanism, and it works through **progressive disclosure**, which loads context in three stages [^3]:
 
 1. **Metadata.** At startup, only each skill's name and description are pre-loaded into the system prompt — enough for the agent to know *when* a skill applies without paying for its contents.
 2. **Body.** If the agent judges a skill relevant to the decision in front of it, it reads the full `SKILL.md` into context.
@@ -97,7 +97,7 @@ Two consequences shape how this agent's skills are written. First, the `descript
 | `utility-sections` | The intent is a single page, a link, a form or a stream | Static pages, contact, forms, submissions, search, QR, menus, web views, live streams, social types, the auto-added four, and the `Fakeclickto` disclosure                         |
 | `template-choices` | A template is anything other than the default           | The two-slot list/detail model, the family prefixes per type, the default table, and the description signals that justify a deviation                                              |
 
-**The number of skills is not fixed.** Four is the current answer, not a designed constant — the split follows _where the decisions are_, so it tracks the catalogue rather than the type enum. Any part of the platform that develops a genuinely distinct decision earns a skill of its own: the widgets that compose a `GBModuleTypeHome` landing page are the obvious next candidate, since assembling a home screen out of widgets is a different question from routing an intent to a section, and answering it inside `section-routing` would mean loading widget guidance on every request that has nothing to do with the home screen. The reverse holds too — a skill that stops carrying a decision of its own is folded back into its neighbor. What is fixed is the rule governing the split, and the two boundaries it has to stay between. **One skill** would load every type, every service and every template on every request; most of it is irrelevant to any single app, and long context is exactly where the model's ability to recall and reason accurately begins to degrade — _context rot_ [^5]. **One skill per type** would put thirty near-identical descriptions in the router, so routing would trigger unreliably, and a four-section app would pull in four skills. Splitting on decisions rather than on subject matter is what keeps a growing catalogue away from both, and it is what the existing four already reflect: `GBModuleTypeArticle` has ten services and needs a page of guidance, while `GBModuleTypeQrcode` has none and needs one line.
+**The number of skills is not fixed.** Four is the current answer, not a designed constant — the split follows _where the decisions are_, so it tracks the catalogue rather than the type enum. Any part of the platform that develops a genuinely distinct decision earns a skill of its own: the widgets that compose a `GBModuleTypeHome` landing page are the obvious next candidate, since assembling a home screen out of widgets is a different question from routing an intent to a section, and answering it inside `section-routing` would mean loading widget guidance on every request that has nothing to do with the home screen. The reverse holds too — a skill that stops carrying a decision of its own is folded back into its neighbor. What is fixed is the rule governing the split, and the two boundaries it has to stay between. **One skill** would load every type, every service and every template on every request; most of it is irrelevant to any single app, and long context is exactly where the model's ability to recall and reason accurately begins to degrade — _context rot_ [^4]. **One skill per type** would put thirty near-identical descriptions in the router, so routing would trigger unreliably, and a four-section app would pull in four skills. Splitting on decisions rather than on subject matter is what keeps a growing catalogue away from both, and it is what the existing four already reflect: `GBModuleTypeArticle` has ten services and needs a page of guidance, while `GBModuleTypeQrcode` has none and needs one line.
 
 ---
 
@@ -123,7 +123,7 @@ The plan is also **reproducible by hand**: a user can follow it in the back offi
 
 ### Design stays on the user's side
 
-Design is the characteristic least affected by this approach, and deliberately so. The agent selects sections, services and templates; it does not choose colours, fonts, headers or navigation styling. GoodBarber already applies a global **App Style** across every page of the app, and every new section arrives with a working default design that the owner can then override per section [^7].
+Design is the characteristic least affected by this approach, and deliberately so. The agent selects sections, services and templates; it does not choose colours, fonts, headers or navigation styling. GoodBarber already applies a global **App Style** across every page of the app, and every new section arrives with a working default design that the owner can then override per section [^6].
 
 The prototype leans on that. `template-choices` enforces a **default-first rule** — the default template is the answer unless the description gives a positive reason to leave it, and a deviation costs a line in `notes` quoting the phrase that justified it.
 
@@ -134,61 +134,35 @@ The prototype leans on that. `template-choices` enforces a **default-first rule*
 
 Because the vocabularies are fixed and the output is a short JSON object, the reasoning is a series of narrow lookups rather than open-ended generation. 
 
-- **Advantage:** Lower cost per run and faster responses, with a smaller context in which the model is measurably more accurate [^5].
-- **Disadvantage:** Terseness is enforced by rule, not by judgement. A caveat that genuinely warranted a paragraph gets a sentence in `notes`, and a non-expert user may need exactly the explanation the budget removed.
+- **Advantage:** Lower cost per run and faster responses, with a smaller context in which the model is measurably more accurate [^4].
 
 ---
 
 ## Challenges
 
-Three difficulties remain open. Each is stated with the mitigation the prototype actually adopted, or with an explicit statement that it was left unaddressed.
+### Detailed and contextualized information
 
-### Detailed and contextualised information
+The agent can only match a requirement against something it can describe. Extensions, services and templates are documented unevenly. Template descriptions in particular are mostly inferred from their codenames rather than observed, three template families have known irregularities (the detail family is called `Detail` on some types and `Content` on others; `Maps` has both; `Photo` has no captured detail family at all), and the Extensions store carries far more capability than the section catalogue exposes.
 
-The agent can only match a requirement against something it can describe. Sections are the easy part — they were captured from a live back office — but **extensions, services and templates are documented unevenly**. Template descriptions in particular are mostly inferred from their codenames rather than observed, three template families have known irregularities (the detail family is called `Detail` on some types and `Content` on others; `Maps` has both; `Photo` has no captured detail family at all), and the Extensions store carries far more capability than the section catalogue exposes.
-
-*Mitigation adopted.* Uncertainty is made visible instead of being resolved by guessing. Every table states the date it was known good and declares itself non-exhaustive; the `templateVerified` flag marks any template chosen on a reading of its name; irregularities are recorded as irregularities rather than smoothed into a false pattern; and the `undetermined` status exists so that *"this may exist but I cannot confirm it"* never has to masquerade as either a match or a gap.
-
-*What remains unaddressed.* The extension catalogue is not covered at all. An app whose central requirement is served by an extension will receive an `undetermined`, which is honest but not useful.
+The extension catalogue (the same happens to the template catalogue) is not covered at all. An app whose central requirement is served by an extension will receive an `undetermined`, which is honest but not useful.
 
 ### Keeping the structure accessible to the user
 
-The plan is written in the platform's internal vocabulary — `GBModuleTypeFakeclickto`, `serviceVerified`, `GBArticleListTemplateTypeEnriched`. That is what makes it executable and what makes it verifiable, and it is also unreadable to the non-expert user the tooling is ultimately for. A user who cannot read the plan cannot correct it, and an uncorrected first draft is one the user abandons.
-
-*Mitigation adopted.* Two mechanisms. First, every section carries an **`intent` field written in the user's own terms**, one line, placed beside the codenames — so the decomposition made in Step 0 is visible and correctable without the reader needing to know what a `GBModuleType*` is. Second, the system prompt requires the agent to **ask before it emits**: open questions are resolved in conversation with the user and never left in the finished document, because the value of a plan depends directly on the specificity of the description behind it, and most users describe their apps briefly and vaguely [^8].
-
-*What remains unaddressed.* The plan is still a JSON block. Rendering it as something a non-technical user reads comfortably is a presentation problem this prototype does not attempt.
-
+The system prompt requires the agent to **ask before it emits**: open questions are resolved in conversation with the user and never left in the finished document, because the value of a plan depends directly on the specificity of the description behind it, and most users describe their apps briefly and vaguely.
 ### Maintaining the context window
 
-This is the structural challenge of the assembler model. The agent's competence is a snapshot: the enum was captured on a specific date, the service tables the same. GoodBarber ships connectors, extensions and templates continuously, and a table that silently falls behind produces an agent that confidently declares gaps where the platform has since grown a capability. Left alone, the failure mode is not a visible error but a slow, invisible narrowing of what the agent believes the platform can do.
+This is the structural challenge of the assembler model. The agent's competence is a snapshot: the enum was captured on a specific date, the service tables the same. GoodBarber ships features, extensions and templates continuously, and a table that silently falls behind produces an agent that confidently declares gaps where the platform has since grown a capability.
 
-*Mitigation adopted.* Three partial defences. Counts are never treated as limits — the skills record them as *"known as of <date>"* snapshots, and the agent is forbidden from refusing a plan on the basis of a number it does not actually know. Growth is absorbed by **adding a table row, not a rule**, so the catalogue can expand without the prompt becoming the brittle accumulation of edge cases that chapter *Context* warns against [^5]. And the failure direction is chosen deliberately: an unknown capability degrades to `undetermined`, so an out-of-date agent says *less* rather than something wrong.
-
-*What remains unaddressed.* None of this refreshes the tables. Doing so requires **scheduled re-capture** of the back office enum, the service lists and the extension store, together with a diff against the current skills — a maintenance process, not a prompt. Until that exists, the agent's accuracy has a half-life, and how long that half-life is has not been measured.
-
----
-
-## What this chapter does not settle
-
-Three questions are deliberately left to later work: whether the agent's plans are *correct* at scale, which requires the evaluation set that does not yet exist; where the JSON plan would be consumed inside the real platform and what server-side validation it would need; and whether the assembler's ceiling is low enough, in practice, to justify reopening the hybrid model's generative half for the cases the catalogue cannot reach.
-
----
+(the solution is to have a scheduled skill that updates the tables with the information from the documentation of the GoodBarber's platform)
 
 ## Sources
 
 [^1]: Brown, M. (2026). _10 Best No-Code AI App Builders in 2026: Tested + Compared._ Zite. [https://www.zite.com/blog/no-code-ai-app-builder](https://www.zite.com/blog/no-code-ai-app-builder)
 
-[^2]: GoodBarber. (2026). _Understand app sections and structure._ GoodBarber Help Center, last updated July 2026. [https://www.goodbarber.com/help/organize-your-content-r93/understand-app-sections-and-structure-a34/](https://www.goodbarber.com/help/organize-your-content-r93/understand-app-sections-and-structure-a34/) — the section families, the connector model, and the documented 120-section per-app limit. Accessed 2026-08-26.
+[^2]: Anthropic. (2026). _Agent Skills._ Claude Platform Documentation. [https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 
-[^3]: Anthropic. (2026). _Agent Skills._ Claude Platform Documentation. [https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
+[^3]: Anthropic. (2026). _Equipping agents for the real world with Agent Skills._ Anthropic Engineering. [https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
 
-[^4]: Anthropic. (2026). _Equipping agents for the real world with Agent Skills._ Anthropic Engineering. [https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
+[^4]: Rajasekaran, P., Dixon, E., Ryan, C., & Hadfield, J. (2025). _Effective context engineering for AI agents._ Anthropic Engineering. [https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 
-[^5]: Rajasekaran, P., Dixon, E., Ryan, C., & Hadfield, J. (2025). _Effective context engineering for AI agents._ Anthropic Engineering. [https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
-
-[^6]: OpenAI. (2026). _What are tokens and how to count them?_ OpenAI Help Center. [https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) — the word-count-to-token ratio used for the estimates above, which are approximations and not measured counts.
-
-[^7]: GoodBarber. (2026). _Design individual sections._ GoodBarber Help Center. [https://www.goodbarber.com/help/design-of-your-sections-r89/section-design-a106/](https://www.goodbarber.com/help/design-of-your-sections-r89/section-design-a106/) — the global App Style, per-section overrides, and the separate "Edit the design" entry points for a list and its detail page.
-
-[^8]: Zi, Y., Menon, H., & Guha, A. (2025). _More Than a Score: Probing the Impact of Prompt Specificity on LLM Code Generation._ arXiv. [https://arxiv.org/abs/2508.03678](https://arxiv.org/abs/2508.03678)
+[^6]: GoodBarber. (2026). _Design individual sections._ GoodBarber Help Center. [https://www.goodbarber.com/help/design-of-your-sections-r89/section-design-a106/](https://www.goodbarber.com/help/design-of-your-sections-r89/section-design-a106/) — the global App Style, per-section overrides, and the separate "Edit the design" entry points for a list and its detail page.
