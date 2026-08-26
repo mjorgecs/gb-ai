@@ -32,7 +32,7 @@ Everything that isn't a content feed. Mostly one screen, mostly little or no con
 | `GBModuleTypeSettings`    | App settings — **auto-added**                  | not captured †                                   |
 | `GBModuleTypeTos`         | Terms / Privacy — **auto-added, ×2**           | `classictos` `classicprivacy`                    |
 
-Known good as of 2026-08-12, and not a closed list.
+Known good as of 2026-08-24, and not a closed list.
 
 **\*** The capture lists `facebook`, `clicktoinstagram` and `clicktotwitter` against these three types **as a group**, not one-to-one. The pairing above is the obvious reading and is probably right, but it is inference — emit `serviceVerified: false` for Instagram and X (Twitter).
 

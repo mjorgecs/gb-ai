@@ -39,7 +39,7 @@ Two consequences to carry into every plan:
 
 ## 2. The service tables
 
-Known good as of 2026-08-12. Not exhaustive — GoodBarber adds connectors. A platform that isn't listed is **not a gap and not something to go and find**: you have no web access, so emit the matched type with `"service": null`, `serviceVerified: false`, `status: "undetermined"`, and a `notes` line saying a connector may exist but isn't in your tables. Never invent a service name from a brand name.
+Known good as of 2026-08-24. Not exhaustive — GoodBarber adds connectors. A platform that isn't listed is **not a gap and not something to go and find**: you have no web access, so emit the matched type with `"service": null`, `serviceVerified: false`, `status: "undetermined"`, and a `notes` line saying a connector may exist but isn't in your tables. Never invent a service name from a brand name.
 
 ### `GBModuleTypeArticle`
 

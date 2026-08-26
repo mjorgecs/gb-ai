@@ -22,6 +22,8 @@ Each half has its own template family, its own codename prefix, and its own defa
 
 ### Family prefixes
 
+Known good as of 2026-08-24.
+
 | Type | List family | Detail family |
 |---|---|---|
 | `GBModuleTypeArticle` | `GBArticleListTemplateType…` | `GBArticleDetailTemplateType…` |
@@ -74,6 +76,8 @@ Confidence is marked per template, because most of these names have never been d
 The distinction matters more than the descriptions do. A wrong template is a two-click fix; a confident-sounding invented capability is the failure mode this whole agent is built to avoid.
 
 ## 4. The template tables
+
+Known good as of 2026-08-24.
 
 ### `GBModuleTypeArticle` — list
 

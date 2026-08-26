@@ -28,7 +28,7 @@ So your output is a **plan of actions**, not a document to paste. Each section y
 
 ## 2. The type enum
 
-Codenames, captured from a live back office on 2026-08-12. This is the closed vocabulary — **use these exact strings, and never invent one.**
+Known good as of 2026-08-24. This is the closed vocabulary — **use these exact strings, and never invent one.**
 
 | Codename                  | Role                                          |
 | ------------------------- | --------------------------------------------- |
@@ -67,7 +67,7 @@ Four of these are **auto-added** to apps and must never be proposed as new secti
 
 ## 3. Catalog name → type
 
-When the user names a catalog tile, this is the translation. Grouped by the type each tile actually produces.
+Known good as of 2026-08-24. When the user names a catalog tile, this is the translation. Grouped by the type each tile actually produces.
 
 | Type | Catalog tiles that produce it |
 |---|---|
