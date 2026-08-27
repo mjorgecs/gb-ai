@@ -287,4 +287,4 @@ Run before emitting. Each failure is either a fix or a stated warning — never 
 
 ---
 
-*Sources: `section-docs/0-section-type-codenames.md`
+*Sources: `ai-concept-docs/1-sections.md`

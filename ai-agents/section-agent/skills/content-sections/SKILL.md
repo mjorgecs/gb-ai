@@ -178,4 +178,4 @@ When you do route to `custom`, put the prerequisite in the section's `notes`: *"
 
 ---
 
-*Sources: `section-docs/0-section-type-codenames.md`; GoodBarber help — [Connect external content sources for articles](https://www.goodbarber.com/help/publish-and-manage-articles-r94/connect-external-content-sources-for-articles-a19/) and [Create custom content feeds](https://www.goodbarber.com/help/build-custom-content-feeds-r111/create-custom-content-feeds-a287/), both cited via the superseded skill and not re-fetched on 2026-08-13.*
+*Sources: `ai-concept-docs/1-sections.md`; GoodBarber help — [Connect external content sources for articles](https://www.goodbarber.com/help/publish-and-manage-articles-r94/connect-external-content-sources-for-articles-a19/) and [Create custom content feeds](https://www.goodbarber.com/help/build-custom-content-feeds-r111/create-custom-content-feeds-a287/), both cited via the superseded skill and not re-fetched on 2026-08-13.*

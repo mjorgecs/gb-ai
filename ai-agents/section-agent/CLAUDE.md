@@ -41,6 +41,6 @@ One Markdown report per run whose **main content is a fenced JSON block**. Prose
 
 ## When changing a skill
 
-1. Check the claim against `section-docs/0-section-type-codenames.md` first. If it isn't there and isn't on goodbarber.com, it doesn't go in unlabelled. *(This applies to **you**, editing the skills — the agent itself never browses.)*
+1. Check the claim against `ai-concept-docs/1-sections.md` first. If it isn't there and isn't on goodbarber.com, it doesn't go in unlabelled. *(This applies to **you**, editing the skills — the agent itself never browses.)*
 2. Keep the skills' vocabulary closed: adding a table row is how the agent learns something new.
 3. Keep skill descriptions distinct. They are how the agent routes; two skills that describe themselves similarly will both trigger or neither will.

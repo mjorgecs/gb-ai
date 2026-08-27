@@ -121,4 +121,4 @@ Name `Plugin` when the user explicitly asks for one of those. **Never reach for 
 
 ---
 
-*Sources: `section-docs/0-section-type-codenames.md`
+*Sources: `ai-concept-docs/1-sections.md`
