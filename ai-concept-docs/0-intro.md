@@ -6,6 +6,10 @@ This description-driven approach represents a paradigm shift from the traditiona
 
 The introduction of AI agents changes this dynamic substantially. These agents are now capable of interpreting a natural-language description of an application and, depending on the implementation, generating an entirely new codebase, assembling existing components, or writing custom components for an already existing application. This shift enables a level of personalization and development speed that was previously unattainable within the constraints of a fixed component library, while simultaneously raising new questions regarding reliability, security, and the long-term maintainability of AI-generated code [^2].
 
+The current market makes this shift concrete, and it does so along a clear dividing line. On one side are the **AI-native builders** — Lovable, Bolt, Replit and v0 — which were born after the shift and treat the generated codebase itself as the product: the user describes an application and the platform writes it, with the resulting differences between them being questions of how much of that code the user is allowed to see and steer. Lovable commits the user to a fixed stack (React and Supabase) in exchange for a smoother, more guided experience; Bolt leaves the framework open; Replit takes the opposite position entirely, exposing a full browser-based IDE with terminal access and version control so that every line the agent writes can be inspected and edited [^4]. On the other side are the **established no-code platforms** — Bubble, Adalo, FlutterFlow, Glide and Softr — which existed before AI and have layered description-driven generation on top of an editor that remains, at its core, visual and component-based. Adalo's *Magic Start* derives a database structure and a navigable app skeleton from a description; FlutterFlow's *AIGen* produces a starting template from a written prompt; Glide generates an application around a data source the user has already connected [^5]. In every case the AI produces a **first draft inside the existing editor**, and the user finishes the work with the same visual tools they would have used before.
+
+This division is the relevant one for the present study, because the two families are not competing implementations of one idea — they are answers to two different questions. The AI-native builders ask what an application should be when nothing constrains its construction; the established platforms ask how a description can be mapped onto a component library that has already been built, tested and deployed. GoodBarber belongs unambiguously to the second family, and already operates in it: its *AI Extension Builder* applies exactly this pattern at the scale of a single extension. The open question this report addresses is therefore not whether description-driven building is viable — the market has settled that — but how far up it can be raised, from generating one extension to generating the structure of an entire application, without abandoning the component library that gives the platform its reliability.
+
 The integration of AI into the no-code app-building process can be organized into three main scenarios, which differ primarily in the degree of autonomy granted to the AI agent and in its relationship with the platform's existing component library.
 
 ## 1. Fully AI App Builder
@@ -29,10 +33,6 @@ The third scenario combines the strengths of the two previous models. The AI age
 - **Advantages:** This approach balances flexibility and control: common, well-understood functionality is delivered through validated components, ensuring reliability and speed, while custom code generation is reserved for genuinely novel requirements, allowing broader personalization without fully sacrificing the reuse-and-reliability benefits of the assembler model.
 - **Disadvantages:** The hybrid nature introduces additional architectural complexity, since the platform must maintain clear rules for when to reuse a component versus when to generate new code, and must ensure that AI-generated custom code integrates safely and consistently with the pre-existing component library [^2].
 
----
-
-_The remainder of this report examines the **Hybrid Approach** in greater depth, evaluating its technical feasibility, associated risks, and suitability for integration into the company's existing no-code platform._
-
 ## References
 
 [^1]: Brown, M. (2026). _10 Best No-Code AI App Builders in 2026: Tested + Compared._ Zite. [https://www.zite.com/blog/no-code-ai-app-builder](https://www.zite.com/blog/no-code-ai-app-builder)
@@ -40,3 +40,7 @@ _The remainder of this report examines the **Hybrid Approach** in greater depth,
 [^2]: Phillips, C. (2026). _Building multi-agent systems: When and how to use them._ Claude Blog. [https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them)
 
 [^3]: Schluntz, E., & Zhang, B. (2024). _Building effective agents._ Anthropic Engineering. [https://www.anthropic.com/engineering/building-effective-agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+[^4]: Lovable. (2026). _Bolt vs Replit vs Lovable: Full Comparison._ Lovable Guides. [https://lovable.dev/guides/bolt-vs-replit-vs-lovable](https://lovable.dev/guides/bolt-vs-replit-vs-lovable)
+
+[^5]: Adalo. (2026). _Adalo's 2026 Guide to AI-Powered No-Code Mobile App Builders._ Adalo Blog. [https://www.adalo.com/posts/guide-ai-powered-no-code-mobile-app-builders/](https://www.adalo.com/posts/guide-ai-powered-no-code-mobile-app-builders/)

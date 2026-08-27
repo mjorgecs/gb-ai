@@ -1,6 +1,6 @@
 ---
 name: content-sections
-description: "Choose the service behind a GoodBarber content feed — the six list-plus-detail section types (Article, Photo, Video, Sound, Maps, Agenda) and the connectors that fill them. Use when a described feature is a repeating feed of items: a blog, news, a gallery, videos, a podcast, events, a calendar, or places on a map. Covers picking between the built-in CMS, a platform connector, a plain RSS feed, and a custom JSON feed; validating that an external feed is still alive; and the categories and list/detail model these sections share. Do NOT use for static pages, forms or links (use utility-sections), for selling products (use commerce-sections), or for choosing the type itself (use section-routing)."
+description: "Choose the service behind a GoodBarber content feed — the six list-plus-detail section types (Article, Photo, Video, Sound, Maps, Agenda) and the connectors that fill them. Use when a described feature is a repeating feed of items: a blog, news, a gallery, videos, a podcast, events, a calendar, or places on a map. Covers picking between the built-in CMS, a platform connector, a plain RSS feed, and a custom JSON feed; validating that an external feed is still alive; and the categories and list/detail model these sections share. Do NOT use for static pages, forms or links (use utility-sections), or for choosing the type itself (use section-routing)."
 ---
 
 # Content Sections
@@ -39,7 +39,7 @@ Two consequences to carry into every plan:
 
 ## 2. The service tables
 
-Known good as of 2026-08-12. Not exhaustive — GoodBarber adds connectors, so a platform that isn't listed is a cue to look it up, not a gap.
+Known good as of 2026-08-24. Not exhaustive — GoodBarber adds connectors. A platform that isn't listed is **not a gap and not something to go and find**: you have no web access, so emit the matched type with `"service": null`, `serviceVerified: false`, `status: "undetermined"`, and a `notes` line saying a connector may exist but isn't in your tables. Never invent a service name from a brand name.
 
 ### `GBModuleTypeArticle`
 
@@ -58,23 +58,57 @@ Known good as of 2026-08-12. Not exhaustive — GoodBarber adds connectors, so a
 
 ### `GBModuleTypeSound`
 
-`mcms` · `anchor` (Spotify for Podcasters) · `spreaker` · `ausha` · `podcast` (a podcast RSS feed) · `simplecast` · `wmpodcast` · `custom`
+| Service      | Source                   |
+| ------------ | ------------------------ |
+| `podcast`    | (a podcast RSS feed)     |
+| `soundcloud` | —                        |
+| `anchor`     | (Spotify for Podcasters) |
+| `spreaker`   | —                        |
+| `ausha`      | —                        |
+| `simplecast` | —                        |
+| `wmpodcast`  | —                        |
+| `custom`     | —                        |
+| `mcms`       | —                        |
 
 ### `GBModuleTypeVideo`
 
-`mcms` · `youtube` · `vimeo` · `dailymotion` · `videopodcast` · `wmvideo` · `custom`
+| Service        |
+| -------------- |
+| `mcms`         |
+| `youtube`      |
+| `dailymotion`  |
+| `rss`          |
+| `videopodcast` |
+| `vimeo`        |
+| `wmvideo`      |
+| `custom`       |
 
 ### `GBModuleTypePhoto`
 
-`mcms` · `flickr` · `wmphoto` · `custom`
+| Service   |
+| --------- |
+| `mcms`    |
+| `flickr`  |
+| `wmphoto` |
+| `custom`  |
+| `mcms`    |
 
 ### `GBModuleTypeAgenda`
 
-`mcms` · `vcalendar` (iCal/vCal) · `wmevent` · `custom`
+| Service     | Notes       |
+| ----------- | ----------- |
+| `mcms`      | —           |
+| `vcalendar` | (iCal/vCal) |
+| `wmevent`   | —           |
+| `custom`    | —           |
 
 ### `GBModuleTypeMaps`
 
-`mcms` · `kml` · `custom`
+| Service  |
+| -------- |
+| `mcms`   |
+| `klm`    |
+| `custom` |
 
 **`custom` is on all six.** It is the "point at your own JSON" escape hatch.
 
@@ -94,13 +128,13 @@ In order:
 
 When a platform has its own service, use it. WordPress content pulled through `rss` works, but the dedicated connector is reported to support **category filters and comments** where plain RSS does not. Only fall back to `rss` when no dedicated connector exists for that platform.
 
-> *Attribution: the category-filter and comments difference comes from GoodBarber's help documentation on connecting external content sources, via the superseded `app-structure` skill. It is not in the back-office captures. State it as "the dedicated connector generally supports more" rather than as a hard capability claim, and check the help page if the difference is load-bearing for a decision.*
+> *Attribution: the category-filter and comments difference comes from GoodBarber's help documentation on connecting external content sources, via the superseded `app-structure` skill. It is not in the back-office captures. State it as "the dedicated connector generally supports more" rather than as a hard capability claim — and if the difference is load-bearing for the decision, say it's worth confirming rather than confirming it yourself.*
 
 ### Two things to tell the user about `rss`
 
 **A feed that resolves is not a feed that works.** Publishers routinely stop updating an RSS endpoint while leaving it online — it keeps returning a valid document containing the last items it ever published. The section builds correctly, populates correctly, and looks broken to end users because every headline is two years old.
 
-So when you suggest a feed URL: check the date of the newest item, not that the URL responds. If it's stale, say so and offer an alternative before anyone builds on it. Note that a live feed satisfies any "must have N items" expectation automatically — and so does a dead one, with dead content. **Check dates, not counts.**
+**You cannot check this — you have no web access — so do not supply feed URLs.** Never invent one, and never assert that a feed you were told about is live. Ask the user for their URL and put the warning in the section's `notes`: whoever binds the feed should look at the date of the newest item, not just that the URL responds. A dead feed satisfies any "must have N items" expectation just as well as a live one, with dead content. **Dates, not counts.**
 
 **Many publishers syndicate only headline plus summary.** Full articles stay behind a paywall. That's the normal, intended use of a public feed, but it means the section shows teasers that link out rather than readable in-app articles. Set that expectation rather than letting the user discover it.
 
@@ -118,7 +152,7 @@ Before any content-type intent goes to the gap path, confirm:
 
 The last one is the real test. `custom` gives you a **read-only feed of uniform items rendered as list-plus-detail**. What it cannot do is anything interactive, per-user, or mutable — a wish list, a calculator, a booking flow. Those aren't feeds and no service will make them one.
 
-When you do route to `custom`, put the prerequisite in the plan: *"requires a JSON endpoint matching GoodBarber's Content API spec — confirm this exists or budget for building it."*
+When you do route to `custom`, put the prerequisite in the section's `notes`: *"requires a JSON endpoint matching GoodBarber's Content API spec — confirm this exists."* State the prerequisite; don't estimate what it takes to build.
 
 ## 5. Type-specific notes
 
@@ -144,4 +178,4 @@ When you do route to `custom`, put the prerequisite in the plan: *"requires a JS
 
 ---
 
-*Sources: `section-docs/0-section-type-codenames.md`; GoodBarber help — [Connect external content sources for articles](https://www.goodbarber.com/help/publish-and-manage-articles-r94/connect-external-content-sources-for-articles-a19/) and [Create custom content feeds](https://www.goodbarber.com/help/build-custom-content-feeds-r111/create-custom-content-feeds-a287/), both cited via the superseded skill and not re-fetched on 2026-08-13.*
+*Sources: `ai-concept-docs/1-sections.md`; GoodBarber help — [Connect external content sources for articles](https://www.goodbarber.com/help/publish-and-manage-articles-r94/connect-external-content-sources-for-articles-a19/) and [Create custom content feeds](https://www.goodbarber.com/help/build-custom-content-feeds-r111/create-custom-content-feeds-a287/), both cited via the superseded skill and not re-fetched on 2026-08-13.*
