@@ -47,20 +47,20 @@ Known good as of 2026-08-24.
 
 This is the rule this skill exists to enforce. The defaults are what GoodBarber ships, what its back office pre-selects, and what the platform's own design system is tuned around. An agent that picks an exotic template because it sounds impressive produces a plan that looks confident and is unjustifiable — and templates are the one axis a user can change later in two clicks, so an unnecessary deviation costs more than it buys.
 
-| Family                                 | Default    |
-| -------------------------------------- | ---------- |
-| `GBArticleListTemplateTypeEnriched`    | Enriched   |
-| `GBArticleDetailTemplateTypeToolBarUp` | ToolBarUp  |
-| `GBVideoListTemplateTypeVisualCard`    | VisualCard |
-| `GBVideoDetailTemplateTypeClassic`     | Classic    |
-| `GBSoundListTemplateTypeEnriched`      | Enriched   |
-| `GBSoundContentTemplateTypeClassic`    | Classic    |
-| `GBPhotoListTemplateTypePinterest`     | Pinterest  |
-| `GBEventListTemplateTypeCondensed`     | Condensed  |
-| `GBEventContentTemplateTypeClassic`    | Classic    |
-| `GBMapsListTemplateTypeEnriched`       | Enriched   |
-| `GBMapsContentTemplateTypeBanner`      | Banner     |
-| `GBMapsDetailTemplateTypeClassic`      | Classic    |
+| Family             | Default  Template                      |
+| ------------------ | -------------------------------------- |
+| `GBArticleList*`   | `GBArticleListTemplateTypeEnriched`    |
+| `GBArticleDetail*` | `GBArticleDetailTemplateTypeToolBarUp` |
+| `GBVideoList*`     | `GBVideoListTemplateTypeVisualCard`    |
+| `GBVideoDetail*`   | `GBVideoDetailTemplateTypeClassic`     |
+| `GBSoundList*`     | `GBSoundListTemplateTypeEnriched`      |
+| `GBSoundContent*`  | `GBSoundContentTemplateTypeClassic`    |
+| `GBPhotoList*`     | `GBPhotoListTemplateTypePinterest`     |
+| `GBEventList*`     | `GBEventListTemplateTypeCondensed`     |
+| `GBEventContent*`  | `GBEventContentTemplateTypeClassic`    |
+| `GBMapsList*`      | `GBMapsListTemplateTypeEnriched`       |
+| `GBMapsContent*`   | `GBMapsContentTemplateTypeBanner`      |
+| `GBMapsDetail*`    | `GBMapsDetailTemplateTypeClassic`      |
 
 **A deviation costs one sentence.** Any non-default template must carry a prose justification quoting the phrase in the user's description that motivated it. No quotable phrase → no deviation.
 
