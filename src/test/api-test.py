@@ -6,8 +6,6 @@ load_dotenv()
 
 api_key = os.getenv('GOOGLE_API_KEY')
 
-print(api_key)
-
 llm = ChatGoogleGenerativeAI(
     model= "gemini-3.5-flash",
     temperature = 0.0,
